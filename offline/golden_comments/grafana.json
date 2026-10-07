@@ -27,6 +27,16 @@
         "comment": "The `tagDeviceUI` function populates the local cache with the device ID before the `CreateOrUpdateDevice` call. If `ErrDeviceLimitReached` is returned, the cache entry remains set, allowing subsequent requests to bypass the device limit until the cache expires after 29 minutes.",
         "severity": "High",
         "category": "bug"
+      },
+      {
+        "comment": "device_limit is read from the raw INI section, but applyEnvVariableOverrides only visits keys already present in the file and conf/defaults.ini does not declare device_limit, so GF_AUTH_ANONYMOUS_DEVICE_LIMIT alone is ignored and the limit stays at zero.",
+        "severity": "Medium",
+        "category": "bug"
+      },
+      {
+        "comment": "TagDevice returns nil immediately when the X-Grafana-Device-Id header is absent, and the new admission gate treats nil as success, so a request without that optional client-supplied header is authenticated as anonymous even when the device limit is full.",
+        "severity": "Medium",
+        "category": "security"
       }
     ]
   },
@@ -48,6 +58,11 @@
         "comment": "The cache key construction in `userPermDenialCacheKey` uses simple string concatenation with underscores, which can lead to ambiguous keys and collision risks when any component contains underscores or is empty. This could result in incorrect denial cache hits, affecting user permissions.",
         "severity": "Medium",
         "category": "data"
+      },
+      {
+        "comment": "The denial cache key omits the identity type, and the anonymous and render identities both use ID 0, so a cached denial for anonymous:0 blocks render:0 for the cache lifetime despite the renderer's wildcard read permissions.",
+        "severity": "Medium",
+        "category": "security"
       }
     ]
   },
@@ -80,6 +95,11 @@
         "comment": "The applyTemplateVariables method is called with request.filters as the third parameter, but this parameter is not used in the corresponding test setup.",
         "severity": "Low",
         "category": "test_gap"
+      },
+      {
+        "comment": "Targets are interpolated during split preparation but still pass through runQuery to DataSourceWithBackend.query, which calls applyTemplateVariables again, so literal variable-like text produced by the first pass is reinterpreted and the executed query differs from the one the user wrote.",
+        "severity": "Medium",
+        "category": "bug"
       }
     ]
   },
@@ -96,6 +116,26 @@
         "comment": "RuleActionsButtons is invoked with only promRule, but SilenceGrafanaRuleDrawer inside RuleActionsButtons still depends on a Grafana Ruler rule being present, so for Grafana rules coming from list views the 'Silence notifications' menu entry (now driven by Grafana Prom abilities) will toggle showSilenceDrawer without ever rendering the drawer. This means clicking 'Silence notifications' for these rules has no visible effect, even when abilities indicate silencing is allowed.",
         "severity": "High",
         "category": "bug"
+      },
+      {
+        "comment": "The menu still renders Delete only when canDelete && rulerRule, but the new GrafanaRuleListItem passes only promRule, so Delete disappears from the menu for every Grafana rule in the new list views even though the Prometheus ability now permits it.",
+        "severity": "High",
+        "category": "bug"
+      },
+      {
+        "comment": "The Pause/Resume menu item is still gated on rulerRuleType.grafana.rule(rulerRule), which the new Prometheus-only list rows never supply, so the newly computed canPause ability can never show the item.",
+        "severity": "High",
+        "category": "bug"
+      },
+      {
+        "comment": "The ModifyExport ability now requires an alerting rule, whereas the previous ruler-based predicate covered both alerting and recording rules, so Grafana recording rules lose the Export action in the new list.",
+        "severity": "Medium",
+        "category": "bug"
+      },
+      {
+        "comment": "Delegating the combined-rule ability hook discards rule.group.source_tenants and replaces the isFederatedRuleGroup check with a hardcoded isFederated = false, so federated Mimir rule groups become editable in the legacy list.",
+        "severity": "Medium",
+        "category": "security"
       }
     ]
   },
@@ -117,6 +157,21 @@
         "comment": "Inconsistency: using name instead of options.Kind for metrics recording differs from other methods.",
         "severity": "Medium",
         "category": "api"
+      },
+      {
+        "comment": "The background legacy write derives its timeout context from the request context, so returning the HTTP response cancels the parent and can abort the legacy safety write before its timeout elapses; the same applies to all four write goroutines.",
+        "severity": "High",
+        "category": "bug"
+      },
+      {
+        "comment": "Legacy replication runs in independent goroutines with no ordering, so a client that awaits Create and then Delete can have the legacy Delete run before the legacy Create, leaving a resurrected record in legacy storage that is never reconciled.",
+        "severity": "High",
+        "category": "concurrency"
+      },
+      {
+        "comment": "The new integration cases request dual-writer mode 3, but SetDualWritingMode initializes a fresh instance to mode 1 and only implements transitions between modes 1 and 2, so the tests actually exercise mode 1 and never the new mode-3 behaviour.",
+        "severity": "Medium",
+        "category": "test_gap"
       }
     ]
   },
@@ -133,6 +188,11 @@
         "comment": "The cleanup job ticker was changed from 10 minutes to 1 minute, which can lead to increased database load and contention due to more frequent execution of cleanup tasks. This change should be reviewed to ensure it aligns with performance expectations.",
         "severity": "Low",
         "category": "perf"
+      },
+      {
+        "comment": "The new DELETE binds one parameter per selected ID with limit handling only for SQLite, but lib/pq rejects statements with 65,535 or more parameters, so a previously valid cleanupjob_batchsize above that on PostgreSQL makes every cleanup run fail.",
+        "severity": "High",
+        "category": "bug"
       }
     ]
   },
