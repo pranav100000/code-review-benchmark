@@ -23,6 +23,21 @@
         "comment": "The loop checking `tempfile.size` may never terminate correctly due to stale cached size, leading to potential infinite loops or incorrect file handling after modifications.",
         "severity": "Medium",
         "category": "bug"
+      },
+      {
+        "comment": "FileHelper.download stops reading after the new fixed 10 MB limit but returns the partial tempfile as a successful download, so an API upload from a URL larger than the limit is stored as a silently truncated file.",
+        "severity": "High",
+        "category": "data"
+      },
+      {
+        "comment": "The shared client-side validator now applies the fixed 10 MB ceiling to attachments as well as images, although attachments are never downsized and the server still enforces max_attachment_size_kb, so valid attachments above 10 MB are rejected and attachments above a smaller configured limit are uploaded only to fail.",
+        "severity": "Medium",
+        "category": "bug"
+      },
+      {
+        "comment": "The new in-place downsize passes the multipart tempfile path, which has no extension, to OptimizedImage, whose animated-GIF handling is selected only by a .gif path suffix, so an oversized animated GIF is flattened to its first frame even when animated thumbnails are enabled.",
+        "severity": "Medium",
+        "category": "data"
       }
     ]
   },
@@ -40,6 +55,21 @@
         "comment": "Typo in property name: 'stopNotificiationsText' should be 'stopNotificationsText' (missing 'n' in 'Notifications')",
         "severity": "Low",
         "category": "style"
+      },
+      {
+        "comment": "The new unsubscribe route is a GET that immediately changes the signed-in user's notification level with no CSRF token or confirmation, so any third-party page can navigate a logged-in user to a predictable topic URL and silently change their subscription.",
+        "severity": "High",
+        "category": "security"
+      },
+      {
+        "comment": "The unsubscribe action derives the new level from the current one, so repeating the same request is not idempotent: watching or tracking becomes regular on the first request and muted on a refresh or retry.",
+        "severity": "Medium",
+        "category": "bug"
+      },
+      {
+        "comment": "The client-side unsubscribe route only loads the ordinary topic view through PostStream.loadTopicView and never calls the unsubscribe action, so following an unsubscribe link through the SPA shows the confirmation page without changing any preference.",
+        "severity": "Medium",
+        "category": "bug"
       }
     ]
   },
@@ -62,6 +92,11 @@
         "comment": "The case-sensitive email lookup in `BlockedEmail.should_block?` creates a bypass risk, allowing 'User@Example.com' to bypass a block on 'user@example.com'. This can lead to unauthorized access to blocked users.",
         "severity": "Critical",
         "category": "security"
+      },
+      {
+        "comment": "The client caches any email that comes back in the server's errors hash, but the new validator's errors[:email] access initializes an empty array that Rails 3.2 preserves in to_hash and JavaScript treats as truthy, so an unrelated signup failure (e.g. a taken username) permanently marks a valid email as rejected.",
+        "severity": "High",
+        "category": "bug"
       }
     ]
   },
@@ -109,6 +144,26 @@
         "comment": "An unescaped request header (request.referer) is interpolated into JavaScript without proper escaping, which can lead to XSS vulnerabilities if the referer contains malicious content. This issue can allow attackers to execute arbitrary scripts in the context of the application.",
         "severity": "Critical",
         "category": "security"
+      },
+      {
+        "comment": "The new standalone embed.css and embed.js assets are not added to the config.assets.precompile list, and production disables runtime asset compilation, so a precompiled production deployment cannot serve the embed script or stylesheet.",
+        "severity": "High",
+        "category": "bug"
+      },
+      {
+        "comment": "When a post is marked as raw HTML, cook returns the raw content without passing it through the sanitizer, so HTML imported from an external feed (or edited by the configured import user) is stored and rendered unsanitized on the forum origin.",
+        "severity": "High",
+        "category": "security"
+      },
+      {
+        "comment": "The embed controller enables AnonymousCache, whose key contains only host and request URI and whose hits are served before controller filters run, so a response first served to an allowed referer is replayed to requests from disallowed origins, bypassing ensure_embeddable.",
+        "severity": "Medium",
+        "category": "security"
+      },
+      {
+        "comment": "Imported links and images are absolutized by prefixing the article host to leading-slash paths only, so scheme-relative URLs such as //cdn.example/a.png are rewritten onto the article host and document-relative paths such as images/a.png are left relative to the forum.",
+        "severity": "Medium",
+        "category": "bug"
       }
     ]
   },
@@ -143,6 +198,21 @@
         "comment": "The include_website_name method is missing the required ? suffix. Rails serializers expect include_ methods to end with ? for conditional attribute inclusion, a convention followed by other methods in this serializer. Without it, the website_name attribute may not be conditionally included as intended. Additionally, the '.' << website_host string concatenation should be replaced with '.' + website_host or '.#{website_host}' to avoid mutating string literals, which can lead to issues.",
         "severity": "Medium",
         "category": "api"
+      },
+      {
+        "comment": "website_name is added as a plain attribute outside untrusted_attributes, so the hostname (and sometimes path) of a TL0 user's website is exposed to anonymous viewers even though the website attribute itself is deliberately withheld from them.",
+        "severity": "High",
+        "category": "security"
+      },
+      {
+        "comment": "The website label is now a server-provided website_name instead of a property computed from model.website, but User.save() only copies bio_excerpt from the response, so after editing the website in preferences the profile shows the old label with the new link destination.",
+        "severity": "Medium",
+        "category": "bug"
+      },
+      {
+        "comment": "The serializer parses the stored website with URI and rescues to nil, but UserUpdater accepts unescaped Unicode URLs, so a previously displayed website such as http://example.com/café now disappears from the profile entirely.",
+        "severity": "Medium",
+        "category": "bug"
       }
     ]
   },
@@ -212,6 +282,21 @@
         "comment": "The route provides the group's ID in params[:id], but the code attempts to read it from params[:group_id], causing the action to fail. This results in a broken feature when trying to access group memberships.",
         "severity": "High",
         "category": "bug"
+      },
+      {
+        "comment": "add_members calls Group#add for every submitted username without checking membership, and group_users has a unique (group_id, user_id) index, so re-submitting an existing member raises and aborts the request after earlier additions were already committed.",
+        "severity": "Medium",
+        "category": "bug"
+      },
+      {
+        "comment": "remove_member deletes the association directly instead of going through Group#usernames= and destroy_deletions, so a removed user's primary_group_id is no longer cleared and their posts keep displaying the group they left.",
+        "severity": "Medium",
+        "category": "data"
+      },
+      {
+        "comment": "The new 50-member default limit applies to every group listing, but the public group members route fetches once and its template has no pagination control, so members beyond the first 50 of a custom group become unreachable.",
+        "severity": "Medium",
+        "category": "bug"
       }
     ]
   },
@@ -229,6 +314,16 @@
         "comment": "Consider normalizing the input locale (e.g., to a symbol) when checking/loading here to avoid double-loading if the same locale is passed as a String vs Symbol (also applies to other locations in the PR).",
         "severity": "Low",
         "category": "perf"
+      },
+      {
+        "comment": "Translation fallbacks now depend on SiteSetting.default_locale, but the translate accelerator's cache key still contains only the translation key, requested locale and backend, so cached translations survive a change of the site default locale or leak between sites in a multisite setup.",
+        "severity": "Medium",
+        "category": "bug"
+      },
+      {
+        "comment": "Fallback locales are preloaded only in the controller before-filter, while the accelerator loads just the active locale and backend fallback attempts bypass its loader, so background jobs that set I18n.locale directly cannot resolve keys through the new site-locale fallback.",
+        "severity": "Medium",
+        "category": "bug"
       }
     ]
   },
@@ -271,6 +366,26 @@
         "comment": "The migration accesses execute(...)[0]['id'] without checking if the query returned any rows, which causes a crash when no embed_category setting exists. This can lead to a broken feature when attempting to edit category/host relationships.",
         "severity": "High",
         "category": "bug"
+      },
+      {
+        "comment": "The changed store test requests fruit 2 but asserts fruit 1's colors, and only passes because the Pretender handler ignores the id and always returns the first fruit.",
+        "severity": "Low",
+        "category": "test_gap"
+      },
+      {
+        "comment": "The new plural-relationship hydration branch calls .map unconditionally, so a record whose *_ids value is null now throws and the whole record fails to hydrate instead of preserving the payload.",
+        "severity": "Medium",
+        "category": "bug"
+      },
+      {
+        "comment": "Validation accepts and stores a host with a port, but record_for_host compares the stored value against URI(url).host, which has no port, so an accepted mapping such as example.com:8080 can never match an embed request.",
+        "severity": "Medium",
+        "category": "bug"
+      },
+      {
+        "comment": "TopicEmbed.import now takes the category only from the embeddable-host lookup and the migration removes the old embed_category setting, so feed-polled imports whose article host has no host mapping fall through to Uncategorized instead of the category previously configured.",
+        "severity": "High",
+        "category": "data"
       }
     ]
   }
