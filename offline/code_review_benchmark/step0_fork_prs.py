@@ -66,7 +66,10 @@ class GitHubPRForker:
         return response.json()
 
     def repo_exists(self, repo_name: str) -> bool:
-        return self._request("GET", f"/repos/{self.org}/{repo_name}").status_code == 200
+        # GitHub answers a renamed repository's old name with a redirect to the new one, so a 200 alone does not
+        # mean the name is taken: the name is free again once the repository that answers carries a different name.
+        response = self._request("GET", f"/repos/{self.org}/{repo_name}")
+        return response.status_code == 200 and response.json().get("name", "").lower() == repo_name.lower()
 
     def create_repo(self, repo_name: str):
         # Create as private initially — public repos have mandatory push protection

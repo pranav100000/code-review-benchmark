@@ -1,0 +1,10 @@
+#!/usr/bin/env python3
+"""gh with a hard per-call timeout: a stalled connection to api.github.com otherwise hangs a call for an hour."""
+import os, subprocess, sys
+real = "/opt/homebrew/bin/gh"
+try:
+    r = subprocess.run([real, *sys.argv[1:]], timeout=float(os.environ.get("GH_CALL_TIMEOUT", "120")))
+except subprocess.TimeoutExpired:
+    print(f"gh: call timed out after GH_CALL_TIMEOUT: {' '.join(sys.argv[1:3])}", file=sys.stderr)
+    sys.exit(124)
+sys.exit(r.returncode)

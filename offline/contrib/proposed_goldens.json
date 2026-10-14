@@ -1,0 +1,530 @@
+[
+ {
+  "url": "https://github.com/calcom/cal.com/pull/10600",
+  "path": "next-auth-options.ts",
+  "line": 131,
+  "severity": "Critical",
+  "category": "security",
+  "comment": "In the NextAuth authorize callback the password check is skipped whenever totpCode is non-empty, and the new backup-code branch never validates that TOTP, so a valid backup code plus any dummy totpCode value authenticates the user without the correct password."
+ },
+ {
+  "url": "https://github.com/calcom/cal.com/pull/10600",
+  "path": "EnableTwoFactorModal.tsx",
+  "line": 135,
+  "severity": "Medium",
+  "category": "bug",
+  "comment": "After successful enablement the modal no longer calls onEnable and only the explicit Close button on the backup-code step invalidates viewer.me, so dismissing that step with Escape or an outside click leaves the settings page showing two-factor as disabled although the server enabled it."
+ },
+ {
+  "url": "https://github.com/calcom/cal.com/pull/10600",
+  "path": "EnableTwoFactorModal.tsx",
+  "line": 174,
+  "severity": "Low",
+  "category": "bug",
+  "comment": "The modal passes an explicit type=\"password\" to PasswordField, and Input spreads caller props after its own visibility-controlled type, so the new show/hide toggle changes its icon but never reveals the password."
+ },
+ {
+  "url": "https://github.com/calcom/cal.com/pull/10600",
+  "path": "Input.tsx",
+  "line": 49,
+  "severity": "Low",
+  "category": "bug",
+  "comment": "Setting tabIndex={-1} on the shared password visibility button removes the only show/hide control from keyboard navigation for every PasswordField consumer (login, signup, settings), not just the modal the change targets."
+ },
+ {
+  "url": "https://github.com/calcom/cal.com/pull/10967",
+  "path": "handleNewBooking.ts",
+  "line": 1078,
+  "severity": "High",
+  "category": "bug",
+  "comment": "evt.destinationCalendar is initialized to null when neither the event type nor the organizer has a destination, so the optional-chained push of co-host destinations is a no-op and every connected co-host calendar is silently discarded for collective bookings."
+ },
+ {
+  "url": "https://github.com/calcom/cal.com/pull/10967",
+  "path": "EventManager.ts",
+  "line": 370,
+  "severity": "High",
+  "category": "bug",
+  "comment": "The per-credential creation loop passes the full organizer-first destination array to every adapter, but Office365, Lark and the base CalDAV service still select element zero, so a second host's credential writes the event into the organizer's calendar (or fails) instead of its own."
+ },
+ {
+  "url": "https://github.com/calcom/cal.com/pull/10967",
+  "path": "EventManager.ts",
+  "line": 170,
+  "severity": "High",
+  "category": "bug",
+  "comment": "The new conditional drops result.credentialId from every video reference even though createMeeting supplies it, and handleCancelBooking only calls deleteMeeting for references that carry a credentialId, so cancelling a booking leaves the external video meeting alive.",
+  "corroboration_pattern": "credentialId.*video|video.*credentialId|deleteMeeting"
+ },
+ {
+  "url": "https://github.com/calcom/cal.com/pull/10967",
+  "path": "handleCancelBooking.ts",
+  "line": 454,
+  "severity": "Medium",
+  "category": "bug",
+  "comment": "In the all-remaining-occurrences branch the loop still iterates only the organizer's credentials and selects each occurrence's first calendar reference, ignoring the co-host credential resolved by the new outer loop, so co-host calendar events of a recurring collective booking are never deleted."
+ },
+ {
+  "url": "https://github.com/calcom/cal.com/pull/10967",
+  "path": "requestReschedule.handler.ts",
+  "line": 240,
+  "severity": "Medium",
+  "category": "bug",
+  "comment": "Request-reschedule cleanup still builds its deletion map only from the requesting user's credentials keyed by provider type, so the co-host calendar events that EventManager now creates under other hosts' credentials cannot be deleted when a reschedule is requested."
+ },
+ {
+  "url": "https://github.com/calcom/cal.com/pull/11059",
+  "path": "app-credential.ts",
+  "line": 50,
+  "severity": "Medium",
+  "category": "bug",
+  "comment": "The webhook indexes appStoreMetadata with the database app slug (e.g. google-calendar) while the generated metadata is keyed by directory name (googlecalendar, office365calendar, zoomvideo), so valid installed apps are rejected with 404."
+ },
+ {
+  "url": "https://github.com/calcom/cal.com/pull/11059",
+  "path": "app-credential.ts",
+  "line": 78,
+  "severity": "Medium",
+  "category": "bug",
+  "comment": "Replacing credential.key on sync leaves the invalid flag untouched, so a credential that was marked invalid stays excluded by consumers such as getCalendarsEvents even after valid replacement keys arrive."
+ },
+ {
+  "url": "https://github.com/calcom/cal.com/pull/11059",
+  "path": "VideoApiAdapter.ts",
+  "line": 62,
+  "severity": "Medium",
+  "category": "api",
+  "comment": "The Webex sync path still validates the delegated response with webexRefreshedTokenSchema, which requires scope, token_type, refresh_token and refresh_token_expires_in, so the documented minimal access-token-plus-expiry response from the sync endpoint is always rejected.",
+  "corroboration_pattern": "webexRefreshedTokenSchema|token_type|refresh_token_expires_in"
+ },
+ {
+  "url": "https://github.com/calcom/cal.com/pull/11059",
+  "path": "CalendarService.ts",
+  "line": 67,
+  "severity": "Medium",
+  "category": "api",
+  "comment": "The Lark sync path passes the delegated response through handleLarkError, which requires code === 0 and a nested data payload, so the flat access-token response from the sync endpoint is thrown as an error before any credential is updated.",
+  "corroboration_pattern": "handleLarkError|code === 0|code: 0"
+ },
+ {
+  "url": "https://github.com/calcom/cal.com/pull/14740",
+  "path": "addGuests.handler.ts",
+  "line": 127,
+  "severity": "High",
+  "category": "security",
+  "comment": "The handler rebuilds the calendar event with Booking.description, which stores the booker's additional notes, and publishes it as the event description to the calendar provider and the guest emails regardless of the event type's hideCalendarNotes setting, exposing notes that were hidden at booking time.",
+  "corroboration_pattern": "hideCalendarNotes|additional ?notes|hidden notes"
+ },
+ {
+  "url": "https://github.com/calcom/cal.com/pull/14740",
+  "path": "addGuests.handler.ts",
+  "line": 136,
+  "severity": "High",
+  "category": "bug",
+  "comment": "The reconstructed event omits team.members, and Google Calendar's updateEvent replaces the entire attendee list derived from that field, so adding a guest to a collective booking removes the other hosts from the calendar event.",
+  "corroboration_pattern": "co-?hosts?|team\\.members|collective"
+ },
+ {
+  "url": "https://github.com/calcom/cal.com/pull/14740",
+  "path": "addGuests.handler.ts",
+  "line": 137,
+  "severity": "Medium",
+  "category": "bug",
+  "comment": "The rebuilt event omits the persisted iCalUID and iCalSequence, so generateIcsString falls back to the raw booking UID with sequence zero and existing recipients receive an invitation that does not update the calendar entry created by the original invite."
+ },
+ {
+  "url": "https://github.com/calcom/cal.com/pull/14740",
+  "path": "addGuests.handler.ts",
+  "line": 165,
+  "severity": "Medium",
+  "category": "bug",
+  "comment": "updateCalendarAttendees discards the results of CalendarManager.updateEvent, which converts provider failures into success:false, so the mutation commits the new attendees and reports success even when no calendar invitation was updated.",
+  "corroboration_pattern": "success: ?false|updateCalendarAttendees|calendar (update|sync).*(fail|error)"
+ },
+ {
+  "url": "https://github.com/calcom/cal.com/pull/14740",
+  "path": "addGuests.handler.ts",
+  "line": 54,
+  "severity": "Medium",
+  "category": "security",
+  "comment": "Being an attendee grants permission to add guests even when the event type has disableGuests set, so a booked attendee can invite arbitrary additional people to an event whose host disabled guests.",
+  "corroboration_pattern": "disableGuests|guests? (are )?disabled"
+ },
+ {
+  "url": "https://github.com/calcom/cal.com/pull/14943",
+  "path": "scheduleSMSReminders.ts",
+  "line": 39,
+  "severity": "High",
+  "category": "data",
+  "comment": "The retry-exhaustion cleanup deletes every reminder whose retryCount exceeds the limit regardless of whether it was eventually scheduled, so a reminder that succeeded on a later attempt is deleted along with the Twilio SID needed to cancel it, leaving an uncancellable SMS scheduled."
+ },
+ {
+  "url": "https://github.com/calcom/cal.com/pull/14943",
+  "path": "scheduleSMSReminders.ts",
+  "line": 190,
+  "severity": "Medium",
+  "category": "bug",
+  "comment": "The retryCount update inside the catch block can itself reject (for example when the reminder row was deleted by a booking cancellation while the Twilio call was pending), and that rejection escapes the per-reminder error boundary and aborts processing of every remaining reminder in the batch."
+ },
+ {
+  "url": "https://github.com/calcom/cal.com/pull/22532",
+  "path": "test-gcal-webhooks.sh",
+  "line": 5,
+  "severity": "Low",
+  "category": "bug",
+  "comment": "ENV_FILE=\"../.env\" is resolved relative to the caller's working directory rather than the script's location, so running the script from the repository root edits or creates a .env file in the parent directory instead of the one the app loads."
+ },
+ {
+  "url": "https://github.com/calcom/cal.com/pull/22532",
+  "path": "CredentialActionsDropdown.tsx",
+  "line": 45,
+  "severity": "Medium",
+  "category": "bug",
+  "comment": "Deleting the calendar cache only invokes the optional onChanged callback and never invalidates viewer.calendars.connectedCalendars, so in the event-type Advanced tab (which passes no callback) the UI keeps showing the deleted cache's timestamp and delete action."
+ },
+ {
+  "url": "https://github.com/calcom/cal.com/pull/22532",
+  "path": "connectedCalendars.handler.ts",
+  "line": 29,
+  "severity": "Medium",
+  "category": "bug",
+  "comment": "The cache-status lookup queries by the credential IDs shown in the UI, but delegated connections expose the synthetic ID -1 while their cache rows are keyed by the real credential ID, so delegated users never see cache status or the delete action.",
+  "corroboration_pattern": "delegat|-1"
+ },
+ {
+  "url": "https://github.com/calcom/cal.com/pull/7232",
+  "path": "emailReminderManager.ts",
+  "line": 225,
+  "severity": "High",
+  "category": "bug",
+  "comment": "Non-immediate cancellation only marks the reminder row and defers the SendGrid cancellation to the 15-minute cron, but SendGrid rejects cancellations within ten minutes of send_at, so a reminder cancelled shortly before its send time is still delivered."
+ },
+ {
+  "url": "https://github.com/calcom/cal.com/pull/7232",
+  "path": "scheduleEmailReminders.ts",
+  "line": 74,
+  "severity": "Medium",
+  "category": "bug",
+  "comment": "A single rejected SendGrid cancellation request throws out of the loop before the accumulated lazy Prisma deletes reach Promise.all, so earlier successful cancellations are never persisted and every later reminder in the batch is skipped."
+ },
+ {
+  "url": "https://github.com/calcom/cal.com/pull/8330",
+  "path": "slots.ts",
+  "line": 134,
+  "severity": "High",
+  "category": "bug",
+  "comment": "When a date override matches, the availability check returns true before evaluating busy.every, so existing bookings, calendar conflicts and buffers no longer exclude slots on override dates."
+ },
+ {
+  "url": "https://github.com/calcom/cal.com/pull/8330",
+  "path": "slots.ts",
+  "line": 106,
+  "severity": "High",
+  "category": "bug",
+  "comment": "The override check rejects a slot if any same-day override excludes it, treating multiple overrides on one date as an intersection instead of a union, so a schedule with two override windows (e.g. 09:00-12:00 and 14:00-17:00) loses all of its slots."
+ },
+ {
+  "url": "https://github.com/calcom/cal.com/pull/8330",
+  "path": "slots.ts",
+  "line": 139,
+  "severity": "High",
+  "category": "bug",
+  "comment": "The weekly working-hours check rejects a slot when any interval for that weekday excludes it rather than requiring containment in one interval, so ordinary split-shift schedules produce no available slots."
+ },
+ {
+  "url": "https://github.com/calcom/cal.com/pull/8330",
+  "path": "slots.ts",
+  "line": 219,
+  "severity": "Medium",
+  "category": "bug",
+  "comment": "Applying the timezone offset by extracting only hour and minute drops the date carry, so an override that crosses midnight after conversion (e.g. 22:00-23:59 UTC viewed at UTC+1) is reversed or attached to the wrong day and discarded by buildSlots."
+ },
+ {
+  "url": "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/2",
+  "path": "routes.rb",
+  "line": 440,
+  "severity": "High",
+  "category": "security",
+  "comment": "The new unsubscribe route is a GET that immediately changes the signed-in user's notification level with no CSRF token or confirmation, so any third-party page can navigate a logged-in user to a predictable topic URL and silently change their subscription."
+ },
+ {
+  "url": "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/2",
+  "path": "topics_controller.rb",
+  "line": 110,
+  "severity": "Medium",
+  "category": "bug",
+  "comment": "The unsubscribe action derives the new level from the current one, so repeating the same request is not idempotent: watching or tracking becomes regular on the first request and muted on a refresh or retry."
+ },
+ {
+  "url": "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/2",
+  "path": "topic-unsubscribe.js.es6",
+  "line": 6,
+  "severity": "Medium",
+  "category": "bug",
+  "comment": "The client-side unsubscribe route only loads the ordinary topic view through PostStream.loadTopicView and never calls the unsubscribe action, so following an unsubscribe link through the SPA shows the confirmation page without changing any preference.",
+  "corroboration_pattern": "loadTopicView|client-side|never (calls|invokes) unsubscribe"
+ },
+ {
+  "url": "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/6",
+  "path": "user_serializer.rb",
+  "line": 43,
+  "severity": "High",
+  "category": "security",
+  "comment": "website_name is added as a plain attribute outside untrusted_attributes, so the hostname (and sometimes path) of a TL0 user's website is exposed to anonymous viewers even though the website attribute itself is deliberately withheld from them."
+ },
+ {
+  "url": "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/6",
+  "path": "user.hbs",
+  "line": 69,
+  "severity": "Medium",
+  "category": "bug",
+  "comment": "The website label is now a server-provided website_name instead of a property computed from model.website, but User.save() only copies bio_excerpt from the response, so after editing the website in preferences the profile shows the old label with the new link destination."
+ },
+ {
+  "url": "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/6",
+  "path": "user_serializer.rb",
+  "line": 138,
+  "severity": "Medium",
+  "category": "bug",
+  "comment": "The serializer parses the stored website with URI and rescues to nil, but UserUpdater accepts unescaped Unicode URLs, so a previously displayed website such as http://example.com/café now disappears from the profile entirely."
+ },
+ {
+  "url": "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/10",
+  "path": "store-test.js.es6",
+  "line": 111,
+  "severity": "Low",
+  "category": "test_gap",
+  "comment": "The changed store test requests fruit 2 but asserts fruit 1's colors, and only passes because the Pretender handler ignores the id and always returns the first fruit."
+ },
+ {
+  "url": "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/10",
+  "path": "store.js.es6",
+  "line": 199,
+  "severity": "Medium",
+  "category": "bug",
+  "comment": "The new plural-relationship hydration branch calls .map unconditionally, so a record whose *_ids value is null now throws and the whole record fails to hydrate instead of preserving the payload."
+ },
+ {
+  "url": "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/10",
+  "path": "embeddable_host.rb",
+  "line": 17,
+  "severity": "Medium",
+  "category": "bug",
+  "comment": "Validation accepts and stores a host with a port, but record_for_host compares the stored value against URI(url).host, which has no port, so an accepted mapping such as example.com:8080 can never match an embed request.",
+  "corroboration_pattern": "\\bport\\b"
+ },
+ {
+  "url": "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/10",
+  "path": "topic_embed.rb",
+  "line": 43,
+  "severity": "High",
+  "category": "data",
+  "comment": "TopicEmbed.import now takes the category only from the embeddable-host lookup and the migration removes the old embed_category setting, so feed-polled imports whose article host has no host mapping fall through to Uncategorized instead of the category previously configured.",
+  "corroboration_pattern": "Uncategorized|embed_category"
+ },
+ {
+  "url": "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/4",
+  "path": "embed.html.erb",
+  "line": 4,
+  "severity": "High",
+  "category": "bug",
+  "comment": "The new standalone embed.css and embed.js assets are not added to the config.assets.precompile list, and production disables runtime asset compilation, so a precompiled production deployment cannot serve the embed script or stylesheet."
+ },
+ {
+  "url": "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/4",
+  "path": "post.rb",
+  "line": 133,
+  "severity": "High",
+  "category": "security",
+  "comment": "When a post is marked as raw HTML, cook returns the raw content without passing it through the sanitizer, so HTML imported from an external feed (or edited by the configured import user) is stored and rendered unsanitized on the forum origin."
+ },
+ {
+  "url": "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/4",
+  "path": "embed_controller.rb",
+  "line": 19,
+  "severity": "Medium",
+  "category": "security",
+  "comment": "The embed controller enables AnonymousCache, whose key contains only host and request URI and whose hits are served before controller filters run, so a response first served to an allowed referer is replayed to requests from disallowed origins, bypassing ensure_embeddable.",
+  "corroboration_pattern": "AnonymousCache|anonymous cache|cached response"
+ },
+ {
+  "url": "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/4",
+  "path": "topic_embed.rb",
+  "line": 65,
+  "severity": "Medium",
+  "category": "bug",
+  "comment": "Imported links and images are absolutized by prefixing the article host to leading-slash paths only, so scheme-relative URLs such as //cdn.example/a.png are rewritten onto the article host and document-relative paths such as images/a.png are left relative to the forum."
+ },
+ {
+  "url": "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/1",
+  "path": "uploads_controller.rb",
+  "line": 55,
+  "severity": "High",
+  "category": "data",
+  "comment": "FileHelper.download stops reading after the new fixed 10 MB limit but returns the partial tempfile as a successful download, so an API upload from a URL larger than the limit is stored as a silently truncated file."
+ },
+ {
+  "url": "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/1",
+  "path": "utilities.js",
+  "line": 182,
+  "severity": "Medium",
+  "category": "bug",
+  "comment": "The shared client-side validator now applies the fixed 10 MB ceiling to attachments as well as images, although attachments are never downsized and the server still enforces max_attachment_size_kb, so valid attachments above 10 MB are rejected and attachments above a smaller configured limit are uploaded only to fail."
+ },
+ {
+  "url": "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/1",
+  "path": "uploads_controller.rb",
+  "line": 67,
+  "severity": "Medium",
+  "category": "data",
+  "comment": "The new in-place downsize passes the multipart tempfile path, which has no extension, to OptimizedImage, whose animated-GIF handling is selected only by a .gif path suffix, so an oversized animated GIF is flattened to its first frame even when animated thumbnails are enabled."
+ },
+ {
+  "url": "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/3",
+  "path": "create_account_controller.js",
+  "line": 274,
+  "severity": "High",
+  "category": "bug",
+  "comment": "The client caches any email that comes back in the server's errors hash, but the new validator's errors[:email] access initializes an empty array that Rails 3.2 preserves in to_hash and JavaScript treats as truthy, so an unrelated signup failure (e.g. a taken username) permanently marks a valid email as rejected."
+ },
+ {
+  "url": "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/8",
+  "path": "groups_controller.rb",
+  "line": 73,
+  "severity": "Medium",
+  "category": "bug",
+  "comment": "add_members calls Group#add for every submitted username without checking membership, and group_users has a unique (group_id, user_id) index, so re-submitting an existing member raises and aborts the request after earlier additions were already committed."
+ },
+ {
+  "url": "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/8",
+  "path": "groups_controller.rb",
+  "line": 90,
+  "severity": "Medium",
+  "category": "data",
+  "comment": "remove_member deletes the association directly instead of going through Group#usernames= and destroy_deletions, so a removed user's primary_group_id is no longer cleared and their posts keep displaying the group they left."
+ },
+ {
+  "url": "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/8",
+  "path": "groups_controller.rb",
+  "line": 26,
+  "severity": "Medium",
+  "category": "bug",
+  "comment": "The new 50-member default limit applies to every group listing, but the public group members route fetches once and its template has no pagination control, so members beyond the first 50 of a custom group become unreachable."
+ },
+ {
+  "url": "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/9",
+  "path": "i18n.rb",
+  "line": 17,
+  "severity": "Medium",
+  "category": "bug",
+  "comment": "Translation fallbacks now depend on SiteSetting.default_locale, but the translate accelerator's cache key still contains only the translation key, requested locale and backend, so cached translations survive a change of the site default locale or leak between sites in a multisite setup."
+ },
+ {
+  "url": "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/9",
+  "path": "application_controller.rb",
+  "line": 159,
+  "severity": "Medium",
+  "category": "bug",
+  "comment": "Fallback locales are preloaded only in the controller before-filter, while the accelerator loads just the active locale and backend fallback attempts bypass its loader, so background jobs that set I18n.locale directly cannot resolve keys through the new site-locale fallback."
+ },
+ {
+  "url": "https://github.com/grafana/grafana/pull/90045",
+  "path": "dualwriter_mode3.go",
+  "line": 51,
+  "severity": "High",
+  "category": "bug",
+  "comment": "The background legacy write derives its timeout context from the request context, so returning the HTTP response cancels the parent and can abort the legacy safety write before its timeout elapses; the same applies to all four write goroutines."
+ },
+ {
+  "url": "https://github.com/grafana/grafana/pull/90045",
+  "path": "dualwriter_mode3.go",
+  "line": 108,
+  "severity": "High",
+  "category": "concurrency",
+  "comment": "Legacy replication runs in independent goroutines with no ordering, so a client that awaits Create and then Delete can have the legacy Delete run before the legacy Create, leaving a resurrected record in legacy storage that is never reconciled."
+ },
+ {
+  "url": "https://github.com/grafana/grafana/pull/90045",
+  "path": "playlist_test.go",
+  "line": 141,
+  "severity": "Medium",
+  "category": "test_gap",
+  "comment": "The new integration cases request dual-writer mode 3, but SetDualWritingMode initializes a fresh instance to mode 1 and only implements transitions between modes 1 and 2, so the tests actually exercise mode 1 and never the new mode-3 behaviour.",
+  "corroboration_pattern": "SetDualWritingMode|mode 1|Mode1|mode 3"
+ },
+ {
+  "url": "https://github.com/grafana/grafana/pull/106778",
+  "path": "AlertRuleMenu.tsx",
+  "line": 87,
+  "severity": "High",
+  "category": "bug",
+  "comment": "The menu still renders Delete only when canDelete && rulerRule, but the new GrafanaRuleListItem passes only promRule, so Delete disappears from the menu for every Grafana rule in the new list views even though the Prometheus ability now permits it."
+ },
+ {
+  "url": "https://github.com/grafana/grafana/pull/106778",
+  "path": "AlertRuleMenu.tsx",
+  "line": 83,
+  "severity": "High",
+  "category": "bug",
+  "comment": "The Pause/Resume menu item is still gated on rulerRuleType.grafana.rule(rulerRule), which the new Prometheus-only list rows never supply, so the newly computed canPause ability can never show the item."
+ },
+ {
+  "url": "https://github.com/grafana/grafana/pull/106778",
+  "path": "useAbilities.ts",
+  "line": 324,
+  "severity": "Medium",
+  "category": "bug",
+  "comment": "The ModifyExport ability now requires an alerting rule, whereas the previous ruler-based predicate covered both alerting and recording rules, so Grafana recording rules lose the Export action in the new list."
+ },
+ {
+  "url": "https://github.com/grafana/grafana/pull/106778",
+  "path": "useAbilities.ts",
+  "line": 228,
+  "severity": "Medium",
+  "category": "security",
+  "comment": "Delegating the combined-rule ability hook discards rule.group.source_tenants and replaces the isFederatedRuleGroup check with a hardcoded isFederated = false, so federated Mimir rule groups become editable in the legacy list."
+ },
+ {
+  "url": "https://github.com/grafana/grafana/pull/103633",
+  "path": "service.go",
+  "line": 116,
+  "severity": "Medium",
+  "category": "security",
+  "comment": "The denial cache key omits the identity type, and the anonymous and render identities both use ID 0, so a cached denial for anonymous:0 blocks render:0 for the cache lifetime despite the renderer's wildcard read permissions."
+ },
+ {
+  "url": "https://github.com/grafana/grafana/pull/79265",
+  "path": "setting.go",
+  "line": 1654,
+  "severity": "Medium",
+  "category": "bug",
+  "comment": "device_limit is read from the raw INI section, but applyEnvVariableOverrides only visits keys already present in the file and conf/defaults.ini does not declare device_limit, so GF_AUTH_ANONYMOUS_DEVICE_LIMIT alone is ignored and the limit stays at zero.",
+  "corroboration_pattern": "defaults\\.ini|environment variable|GF_AUTH|env override"
+ },
+ {
+  "url": "https://github.com/grafana/grafana/pull/79265",
+  "path": "client.go",
+  "line": 44,
+  "severity": "Medium",
+  "category": "security",
+  "comment": "TagDevice returns nil immediately when the X-Grafana-Device-Id header is absent, and the new admission gate treats nil as success, so a request without that optional client-supplied header is authenticated as anonymous even when the device limit is full.",
+  "corroboration_pattern": "X-Grafana-Device-Id|device id header|without (a|the) header"
+ },
+ {
+  "url": "https://github.com/grafana/grafana/pull/80329",
+  "path": "xorm_store.go",
+  "line": 615,
+  "severity": "High",
+  "category": "bug",
+  "comment": "The new DELETE binds one parameter per selected ID with limit handling only for SQLite, but lib/pq rejects statements with 65,535 or more parameters, so a previously valid cleanupjob_batchsize above that on PostgreSQL makes every cleanup run fail.",
+  "corroboration_pattern": "65,?535|parameter limit|too many (bind )?parameters|lib/pq"
+ },
+ {
+  "url": "https://github.com/grafana/grafana/pull/107534",
+  "path": "querySplitting.ts",
+  "line": 299,
+  "severity": "Medium",
+  "category": "bug",
+  "comment": "Targets are interpolated during split preparation but still pass through runQuery to DataSourceWithBackend.query, which calls applyTemplateVariables again, so literal variable-like text produced by the first pass is reinterpreted and the executed query differs from the one the user wrote."
+ }
+]

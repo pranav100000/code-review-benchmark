@@ -175,21 +175,25 @@ def fetch_review_comments(org: str, repo: str, pr: int, tool: str = "") -> list[
 
 
 def fetch_pr_metadata(org: str, repo: str, pr: int) -> dict:
-    """Fetch PR title and URL."""
+    """Fetch PR title and URL. The PR must be the benchmark PR (head branch pr-<n>): Dependabot can open
+    PR #1 in a fork whose step0 run died before creating the real one, and such a repo must be re-forked."""
     try:
         pr_data = gh(["api", f"/repos/{org}/{repo}/pulls/{pr}"])
-        return {
-            "title": pr_data.get("title"),
-            "url": pr_data.get("html_url"),
-        }
     except subprocess.CalledProcessError:
         return {"title": None, "url": None}
+    head = (pr_data.get("head") or {}).get("ref") or ""
+    if not head.startswith("pr-"):
+        raise RuntimeError(f"{org}/{repo}#{pr} head is {head!r}, not a benchmark PR branch; re-fork this repo")
+    return {
+        "title": pr_data.get("title"),
+        "url": pr_data.get("html_url"),
+    }
 
 
-def fetch_repo_data(org: str, repo_name: str, tool: str = "") -> dict:
+def fetch_repo_data(org: str, repo_name: str, tool: str = "", pr_number: int = 1) -> dict:
     """Fetch both PR metadata and comments for a repo. Returns combined result."""
-    pr_meta = fetch_pr_metadata(org, repo_name, 1)
-    comments = fetch_review_comments(org, repo_name, 1, tool=tool)
+    pr_meta = fetch_pr_metadata(org, repo_name, pr_number)
+    comments = fetch_review_comments(org, repo_name, pr_number, tool=tool)
     return {
         "repo_name": repo_name,
         "pr_meta": pr_meta,
@@ -207,7 +211,18 @@ def main():
     parser.add_argument("--test", action="store_true", help="Test mode: process 1 repo per tool")
     parser.add_argument("--tool", help="Only process specific tool")
     parser.add_argument("--force", action="store_true", help="Force refetch (all tools, or specific with --tool)")
+    parser.add_argument(
+        "--variants-file",
+        help="Prompt-variant run file from scripts/aether_variant_run.py: reads that variant's PR in each repo "
+        "and records the reviews under the variant's tool name (requires --tool)",
+    )
     args = parser.parse_args()
+    variant = None
+    if args.variants_file:
+        if not args.tool:
+            parser.error("--variants-file requires --tool")
+        with open(args.variants_file) as f:
+            variant = json.load(f)
 
     # Load existing output for incremental processing
     output_path = Path(args.output)
@@ -244,6 +259,14 @@ def main():
 
         if args.tool and tool != args.tool:
             continue
+        if variant:
+            if repo_name not in variant["repos"]:
+                errors.append(f"{repo_name} is not part of variant {variant['tool_name']} (no PR recorded); skipped")
+                continue
+            tool = variant["tool_name"]
+            parsed = {**parsed, "tool": tool, "pr_number_in_repo": variant["repos"][repo_name]["pr_number"]}
+        else:
+            parsed = {**parsed, "pr_number_in_repo": 1}
 
         if args.test and tool in tools_seen:
             continue
@@ -281,7 +304,9 @@ def main():
     processed = 0
     with ThreadPoolExecutor(max_workers=MAX_WORKERS) as executor:
         future_to_info = {
-            executor.submit(fetch_repo_data, args.org, repo_name, parsed["tool"]): (repo_name, parsed, golden_url)
+            executor.submit(fetch_repo_data, args.org, repo_name, parsed["tool"], parsed["pr_number_in_repo"]): (
+                repo_name, parsed, golden_url,
+            )
             for repo_name, parsed, golden_url in to_process
         }
 

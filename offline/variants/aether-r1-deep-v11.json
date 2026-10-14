@@ -1,0 +1,209 @@
+{
+  "variant": "deep-v11",
+  "tool_name": "aether-r1-deep-v11",
+  "tool_slug": "aether-r1",
+  "prompt_file": "prompts/aether-deep-review-v11.md",
+  "prompt": "# Aether deep review\n\nFind every defect this pull request introduces or exposes, and publish each one once with a concrete trigger. A missed real defect costs far more than an extra comment, so this review is built for recall: several independent passes over the same diff, merged, and published without a confidence cutoff.\n\n## 1. Scope\n\nReview the pull request's changes from its merge base to its head, reading whatever repository context is needed to reason about them.\n\nIn scope: defects in or adjacent to the changed code. Wrong behavior, security and authorization gaps, races and non-atomic updates, data loss or corruption, broken API and type contracts, material performance regressions, newly required behavior with no test, and comments, docs or error messages the change made untrue. Every severity counts, including low: dead code, a misleading name or message, a missing cleanup.\n\nOut of scope: style, naming and refactoring preferences; speculation without a concrete trigger; pre-existing problems the change does not touch; anything about the environment the review ran in.\n\n## 2. Independent reviewers\n\nWrite a brief: the changed files, each hunk in one line, and the contracts, callers, tests and schemas the change touches. Test files, fixtures, migrations, stylesheets and scripts are changed code too and get the same scrutiny as application code.\n\nThen run the deterministic pre-pass script, from the repository root at the pull request's head, and append its output to the brief verbatim:\n\n```\ncurl -fsSL https://gist.githubusercontent.com/pranav100000/ab67e9a19f90cf2b274f19f6a8ab82a8/raw/review_triggers.py -o /tmp/review_triggers.py\npython3 /tmp/review_triggers.py --base <merge base> > /tmp/review-prepass.md\n```\n\nIt runs static analyzers over the changed files (Semgrep against the merge base, ESLint, stylelint, go vet, nilness, gosec, ruff, bandit, Brakeman, ERB syntax) plus mechanical checks on the diff (security headers, origin comparisons, request parameters, nullable columns, lazily initialized state, test verbs, resources acquired without release, exported names that do not match the file, rewritten lines whose literal changed, removed guards and deleted files), lazily installing each tool it needs and skipping any it cannot install. Each item is numbered `T<n>` and ends with a question. The items are leads, not findings: every reviewer must answer each item whose file is in the diff with either the defect it exposes or one sentence on why it holds, and an unanswered item is a reviewer failure. A removed defensive check that nothing replaced is reported as a nit even when today's callers never reach it.\n\nThen run seven reviewers that each receive the diff, the brief and read access to the repository, and never see each other's output. Use the agent's subagent mechanism when it has one; otherwise run the seven sequentially, each from a fresh start with only the brief, and keep their results in separate files so no pass reads another's notes.\n\n- **Coverage A and Coverage B** (identical instructions, run twice because two passes catch different things): walk every changed hunk and check null, undefined and empty-collection paths, including every lookup whose result can be absent and every function path with no return value; inverted or incomplete conditions and boundary errors; wrong comparison operators or reference equality where value equality was meant; promises created but not awaited, including inside forEach or map callbacks; hardcoded literals where a variable or field was meant; case, normalization and regex-anchoring mistakes when matching strings, such as a suffix match where a whole-domain match was meant; a query or filter whose new condition applies more widely than the sibling conditions around it; error handling that changes the response status or swallows failures; resources never released; branches the change makes unreachable; loops whose exit condition reads a value that does not change.\n- **Literals and definitions**: for every identifier, key, parameter name, HTTP verb, property, enum value, vendor-prefixed CSS property and numeric constant the diff introduces, open the thing it refers to (the route table, the schema, the type, the framework or browser documentation, the value before the change) and confirm it exists and means what the code assumes. Check that each changed file's contents match its name and purpose, that a test calls the route with the verb the router declares, and that every edit mirrored from one place to another preserves the original values.\n- **Contracts**: for every changed signature, return shape, schema, query or type, trace every caller and implementation across the repository and report each place that now disagrees with the change, including implementations of a changed interface that still declare the old shape. When a synchronous function became asynchronous, list every caller that still uses its result synchronously.\n- **State and failure paths**: read-modify-write sequences that are not atomic under concurrent requests, lazily initialized shared state read from several threads, stale reads, missing transactions, partial updates, retry and idempotency gaps, cancellation and resource lifecycle; migrations whose new columns leave existing rows null or without the default the code assumes; sibling code paths that handle the same event asymmetrically, where one path persists or cleans up and the other does not; then construct concrete edge inputs and operational sequences for the changed behavior and trace each through the code until it produces a wrong result.\n- **Security**: for every changed path, ask who controls each input and what it reaches. Network requests to a URL that comes from configuration, a setting or a request (server-side request forgery); origin, host and referer checks done with substring or prefix matching instead of exact comparison of scheme, host and port; security headers added, removed or weakened, such as frame options, content security policy or CORS; values interpolated into HTML, JavaScript, SQL, shell commands or templates without escaping or binding; state-changing GET routes and other requests without CSRF protection; authorization checks that are skipped on one branch, bypassed by a cache or a fallback value, or that trust a cached grant while ignoring a cached denial; secrets, tokens or private fields exposed by a new serializer field, log line or response.\n- **Refactor fidelity**: for every block the diff replaces, moves, extracts or rewrites, list what the old code did, including nil and empty checks, logged fields and identifiers, error handling and the errors returned, blocking versus asynchronous behavior, ordering and retries, and confirm each behavior survives in the new code; a refactor that drops one of them is a defect even when the new code reads cleaner. Also check that error messages and returned error types describe the condition that actually occurred, that newly required behavior has a test and that the test exercises the new arguments, and that changed comments, docs and messages are still true.\n\nEach reviewer returns atomic items, one defect per item: file and changed line, root cause, trigger (the input, state or sequence), observable bad outcome, evidence from the repository, suggested fix, severity (critical, high, medium, low). A reviewer reports every defect it has a concrete trigger for and nothing it does not. Describe an attacker-controlled input by its property (a URL containing a quote character, a hostname that is a prefix of the allowed one, an address inside the private range), never as a working payload, script or exploit string; a finding states the mechanism and the class of input that reaches it, which is what a maintainer needs to fix it.\n\n## 3. Merge\n\nCluster the reviewers' items by underlying defect, not by wording or line. Keep the strongest trigger and evidence for each cluster, and record how many of the independent reviewers reported it. One item per defect. Merging removes duplicates only; it never removes a finding.\n\n## 4. Verify, cheaply and optionally\n\nProof strengthens a finding; it never gates one. Where a cheap check exists, run it, cheapest first: the language's compiler or type checker on the changed package; a throwaway script under /tmp that calls the changed function with the item's trigger, with external services mocked; a focused test in the project's framework only if its dependencies install quickly. Installing a missing toolchain with sudo apt-get or running one from a Docker image is fine. Do not install the whole repository, do not run the full test suite (the change already passed CI with its defects in), do not let setup consume the review, and do not modify the checkout. Never write a script that exercises an authentication or authorization bypass, forges a credential or token, or constructs attacker input; a security finding is verified by reading the code path, and its trigger is described, not executed.\n\n## 5. Publish\n\nPost every merged item unless the repository shows its trigger is unreachable. Do not drop a finding because it depends on a particular input or state; that is what a trigger is.\n\nWrite each finding as mechanism, then consequence, in one or two sentences, followed by the trigger and the fix, anchored to the changed line. Say when a check reproduced it, and end every finding with how many reviewers found it, in the form `(found by 2 of 7 reviewers)`. Severity: p1 only when you would block the merge yourself; other critical, high and medium findings are p2; low is nit. Post once, as a single review with the inline findings ordered p1, then p2, then nit, and a short summary. At most 30 inline comments: anything beyond the 30th is listed in the summary instead, one line each, because tooling that reads a review sees only its first 30 inline comments. When nothing survives, say so in one sentence rather than inventing findings.",
+  "reasoning_effort": "xhigh",
+  "agent_type": "codex",
+  "model": "gpt-6-astra",
+  "vm_size": null,
+  "repos": {
+    "cal_dot_com__cal.com__aether-r1__PR10600__20261006": {
+      "pr_number": 14,
+      "triggered_at": "2026-10-07T14:41:26.342508+00:00"
+    },
+    "cal_dot_com__cal.com__aether-r1__PR10967__20261006": {
+      "pr_number": 12,
+      "triggered_at": "2026-10-07T14:43:03.884918+00:00"
+    },
+    "cal_dot_com__cal.com__aether-r1__PR11059__20261006": {
+      "pr_number": 6,
+      "triggered_at": "2026-10-07T14:44:41.110918+00:00"
+    },
+    "cal_dot_com__cal.com__aether-r1__PR14740__20261006": {
+      "pr_number": 11,
+      "triggered_at": "2026-10-07T14:46:19.429607+00:00"
+    },
+    "cal_dot_com__cal.com__aether-r1__PR14943__20261006": {
+      "pr_number": 13,
+      "triggered_at": "2026-10-07T14:47:56.325205+00:00"
+    },
+    "cal_dot_com__cal.com__aether-r1__PR22345__20261006": {
+      "pr_number": 6,
+      "triggered_at": "2026-10-07T14:49:33.832020+00:00"
+    },
+    "cal_dot_com__cal.com__aether-r1__PR22532__20261006": {
+      "pr_number": 6,
+      "triggered_at": "2026-10-07T14:51:12.462624+00:00"
+    },
+    "cal_dot_com__cal.com__aether-r1__PR7232__20261006": {
+      "pr_number": 12,
+      "triggered_at": "2026-10-07T14:52:50.452145+00:00"
+    },
+    "cal_dot_com__cal.com__aether-r1__PR8087__20261006": {
+      "pr_number": 6,
+      "triggered_at": "2026-10-07T14:54:27.596420+00:00"
+    },
+    "cal_dot_com__cal.com__aether-r1__PR8330__20261006": {
+      "pr_number": 6,
+      "triggered_at": "2026-10-07T14:56:05.833954+00:00"
+    },
+    "discourse__discourse-graphite__aether-r1__PR10__20261006": {
+      "pr_number": 6,
+      "triggered_at": "2026-10-07T14:57:44.652805+00:00"
+    },
+    "discourse__discourse-graphite__aether-r1__PR1__20261006": {
+      "pr_number": 6,
+      "triggered_at": "2026-10-07T14:59:22.685868+00:00"
+    },
+    "discourse__discourse-graphite__aether-r1__PR2__20261006": {
+      "pr_number": 6,
+      "triggered_at": "2026-10-07T15:01:00.548053+00:00"
+    },
+    "discourse__discourse-graphite__aether-r1__PR3__20261006": {
+      "pr_number": 6,
+      "triggered_at": "2026-10-07T15:02:39.486121+00:00"
+    },
+    "discourse__discourse-graphite__aether-r1__PR4__20261006": {
+      "pr_number": 12,
+      "triggered_at": "2026-10-07T15:04:17.988771+00:00"
+    },
+    "discourse__discourse-graphite__aether-r1__PR5__20261006": {
+      "pr_number": 11,
+      "triggered_at": "2026-10-07T15:05:56.635595+00:00"
+    },
+    "discourse__discourse-graphite__aether-r1__PR6__20261006": {
+      "pr_number": 7,
+      "triggered_at": "2026-10-07T19:31:56.427017+00:00"
+    },
+    "discourse__discourse-graphite__aether-r1__PR7__20261006": {
+      "pr_number": 13,
+      "triggered_at": "2026-10-07T19:33:33.406161+00:00"
+    },
+    "discourse__discourse-graphite__aether-r1__PR8__20261006": {
+      "pr_number": 14,
+      "triggered_at": "2026-10-07T19:35:10.469116+00:00"
+    },
+    "discourse__discourse-graphite__aether-r1__PR9__20261006": {
+      "pr_number": 12,
+      "triggered_at": "2026-10-07T19:36:48.453387+00:00"
+    },
+    "grafana__grafana__aether-r1__PR103633__20261006": {
+      "pr_number": 62,
+      "triggered_at": "2026-10-07T19:38:36.591206+00:00"
+    },
+    "grafana__grafana__aether-r1__PR106778__20261006": {
+      "pr_number": 55,
+      "triggered_at": "2026-10-07T19:40:18.633920+00:00"
+    },
+    "grafana__grafana__aether-r1__PR107534__20261006": {
+      "pr_number": 55,
+      "triggered_at": "2026-10-07T19:41:56.111990+00:00"
+    },
+    "sentry__sentry__aether-r1__PR80168__20261007": {
+      "pr_number": 3,
+      "triggered_at": "2026-10-07T20:19:19.832484+00:00"
+    },
+    "sentry__sentry__aether-r1__PR80528__20261007": {
+      "pr_number": 3,
+      "triggered_at": "2026-10-07T20:20:57.129925+00:00"
+    },
+    "sentry__sentry__aether-r1__PR93824__20261007": {
+      "pr_number": 13,
+      "triggered_at": "2026-10-07T20:22:33.596136+00:00"
+    },
+    "sentry__sentry__aether-r1__PR95633__20261007": {
+      "pr_number": 12,
+      "triggered_at": "2026-10-07T20:24:28.132188+00:00"
+    },
+    "grafana__grafana__aether-r1__PR76186__20261006": {
+      "pr_number": 15,
+      "triggered_at": "2026-10-07T20:30:44.236513+00:00"
+    },
+    "grafana__grafana__aether-r1__PR80329__20261006": {
+      "pr_number": 8,
+      "triggered_at": "2026-10-07T20:32:21.098463+00:00"
+    },
+    "grafana__grafana__aether-r1__PR94942__20261007": {
+      "pr_number": 4,
+      "triggered_at": "2026-10-07T20:33:59.198807+00:00"
+    },
+    "grafana__grafana__aether-r1__PR97529__20261007": {
+      "pr_number": 30,
+      "triggered_at": "2026-10-07T20:35:36.244871+00:00"
+    },
+    "keycloak__keycloak-greptile__aether-r1__PR1__20261007": {
+      "pr_number": 70,
+      "triggered_at": "2026-10-07T20:37:14.074477+00:00"
+    },
+    "keycloak__keycloak__aether-r1__PR32918__20261007": {
+      "pr_number": 89,
+      "triggered_at": "2026-10-07T20:38:51.522674+00:00"
+    },
+    "keycloak__keycloak__aether-r1__PR33832__20261007": {
+      "pr_number": 88,
+      "triggered_at": "2026-10-07T20:40:29.279075+00:00"
+    },
+    "keycloak__keycloak__aether-r1__PR36880__20261007": {
+      "pr_number": 75,
+      "triggered_at": "2026-10-07T20:42:06.605801+00:00"
+    },
+    "keycloak__keycloak__aether-r1__PR36882__20261007": {
+      "pr_number": 76,
+      "triggered_at": "2026-10-07T20:43:44.110524+00:00"
+    },
+    "keycloak__keycloak__aether-r1__PR37038__20261007": {
+      "pr_number": 75,
+      "triggered_at": "2026-10-07T20:45:21.918141+00:00"
+    },
+    "keycloak__keycloak__aether-r1__PR37429__20261007": {
+      "pr_number": 76,
+      "triggered_at": "2026-10-07T20:47:00.059714+00:00"
+    },
+    "keycloak__keycloak__aether-r1__PR37634__20261007": {
+      "pr_number": 75,
+      "triggered_at": "2026-10-07T20:48:37.857513+00:00"
+    },
+    "keycloak__keycloak__aether-r1__PR38446__20261007": {
+      "pr_number": 70,
+      "triggered_at": "2026-10-07T20:50:14.609358+00:00"
+    },
+    "sentry__sentry-greptile__aether-r1__PR1__20261007": {
+      "pr_number": 32,
+      "triggered_at": "2026-10-07T20:53:28.348785+00:00"
+    },
+    "sentry__sentry-greptile__aether-r1__PR2__20261007": {
+      "pr_number": 4,
+      "triggered_at": "2026-10-07T20:55:05.694438+00:00"
+    },
+    "sentry__sentry-greptile__aether-r1__PR3__20261007": {
+      "pr_number": 14,
+      "triggered_at": "2026-10-07T20:56:42.707836+00:00"
+    },
+    "sentry__sentry-greptile__aether-r1__PR5__20261007": {
+      "pr_number": 18,
+      "triggered_at": "2026-10-07T20:58:19.819932+00:00"
+    },
+    "sentry__sentry__aether-r1__PR67876__20261007": {
+      "pr_number": 4,
+      "triggered_at": "2026-10-07T20:59:57.143610+00:00"
+    },
+    "sentry__sentry__aether-r1__PR77754__20261007": {
+      "pr_number": 4,
+      "triggered_at": "2026-10-07T21:01:34.681896+00:00"
+    },
+    "grafana__grafana__aether-r1__PR79265__20261006": {
+      "pr_number": 15,
+      "triggered_at": "2026-10-07T21:30:05.303742+00:00"
+    },
+    "grafana__grafana__aether-r1__PR90045__20261006": {
+      "pr_number": 8,
+      "triggered_at": "2026-10-07T21:31:43.109830+00:00"
+    },
+    "keycloak__keycloak__aether-r1__PR40940__20261007": {
+      "pr_number": 71,
+      "triggered_at": "2026-10-07T21:33:19.747635+00:00"
+    }
+  }
+}

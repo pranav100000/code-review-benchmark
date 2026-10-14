@@ -1,0 +1,111 @@
+{
+ "https://github.com/calcom/cal.com/pull/14740": {
+  "matches": {
+   "G1": "A5",
+   "G2": "A4",
+   "G3": "A17",
+   "G4": "A7",
+   "G6": "A10"
+  },
+  "candidates": 30
+ },
+ "https://github.com/grafana/grafana/pull/79265": {
+  "matches": {
+   "G1": "A2",
+   "G2": "A3",
+   "G3": "A12",
+   "G4": "A12",
+   "G5": "A1"
+  },
+  "candidates": 18
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/8": {
+  "matches": {
+   "G2": "A8",
+   "G3": "A19",
+   "G4": "A5"
+  },
+  "candidates": 23
+ },
+ "https://github.com/grafana/grafana/pull/107534": {
+  "matches": {},
+  "candidates": 6
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/5": {
+  "matches": {
+   "G1": "A2",
+   "G2": "A8"
+  },
+  "candidates": 11
+ },
+ "https://github.com/grafana/grafana/pull/76186": {
+  "matches": {
+   "G2": "A4",
+   "G3": "A2"
+  },
+  "candidates": 5
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/7": {
+  "matches": {
+   "G1": "A8",
+   "G2": "A2",
+   "G3": "A4",
+   "G4": "A8",
+   "G5": "A3"
+  },
+  "candidates": 16
+ },
+ "https://github.com/calcom/cal.com/pull/10967": {
+  "matches": {
+   "G1": "A1",
+   "G3": "A5",
+   "G4": "A3",
+   "G6": "A13"
+  },
+  "candidates": 30
+ },
+ "https://github.com/calcom/cal.com/pull/10600": {
+  "matches": {
+   "G1": "A20",
+   "G2": "A24",
+   "G3": "A4",
+   "G4": "A2",
+   "G5": "A14"
+  },
+  "candidates": 24
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/9": {
+  "matches": {},
+  "candidates": 8
+ },
+ "https://github.com/grafana/grafana/pull/103633": {
+  "matches": {
+   "G1": "A3",
+   "G2": "A5",
+   "G3": "A6"
+  },
+  "candidates": 16
+ },
+ "https://github.com/calcom/cal.com/pull/7232": {
+  "matches": {
+   "G1": "A5",
+   "G2": "A15"
+  },
+  "candidates": 16
+ },
+ "https://github.com/calcom/cal.com/pull/14943": {
+  "matches": {
+   "G1": "A6",
+   "G2": "A4"
+  },
+  "candidates": 10
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/4": {
+  "matches": {
+   "G1": "A27",
+   "G5": "A1",
+   "G7": "A25"
+  },
+  "candidates": 30
+ }
+}

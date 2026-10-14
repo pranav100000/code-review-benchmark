@@ -1,0 +1,146 @@
+{
+ "https://github.com/keycloak/keycloak/pull/32918": {
+  "matches": {
+   "G2": "A5"
+  },
+  "candidates": 6
+ },
+ "https://github.com/keycloak/keycloak/pull/33832": {
+  "matches": {
+   "G2": "A9",
+   "G4": "A2"
+  },
+  "candidates": 9
+ },
+ "https://github.com/keycloak/keycloak/pull/36880": {
+  "matches": {
+   "G1": "A9",
+   "G4": "A7",
+   "G5": "A16"
+  },
+  "candidates": 22
+ },
+ "https://github.com/keycloak/keycloak/pull/36882": {
+  "matches": {
+   "G1": "A3"
+  },
+  "candidates": 7
+ },
+ "https://github.com/keycloak/keycloak/pull/37038": {
+  "matches": {
+   "G1": "A1",
+   "G2": "A6"
+  },
+  "candidates": 17
+ },
+ "https://github.com/keycloak/keycloak/pull/37429": {
+  "matches": {
+   "G1": "A7",
+   "G2": "A13",
+   "G3": "A5"
+  },
+  "candidates": 17
+ },
+ "https://github.com/keycloak/keycloak/pull/37634": {
+  "matches": {
+   "G1": "A10",
+   "G2": "A8",
+   "G3": "A17",
+   "G4": "A12"
+  },
+  "candidates": 21
+ },
+ "https://github.com/keycloak/keycloak/pull/38446": {
+  "matches": {
+   "G1": "A2",
+   "G2": "A7"
+  },
+  "candidates": 14
+ },
+ "https://github.com/keycloak/keycloak/pull/40940": {
+  "matches": {
+   "G1": "A3",
+   "G2": "A1"
+  },
+  "candidates": 5
+ },
+ "https://github.com/getsentry/sentry/pull/67876": {
+  "matches": {
+   "G2": "A1",
+   "G3": "A4"
+  },
+  "candidates": 12
+ },
+ "https://github.com/getsentry/sentry/pull/77754": {
+  "matches": {
+   "G1": "A3"
+  },
+  "candidates": 7
+ },
+ "https://github.com/getsentry/sentry/pull/80168": {
+  "matches": {
+   "G1": "A1",
+   "G2": "A6",
+   "G3": "A5"
+  },
+  "candidates": 8
+ },
+ "https://github.com/getsentry/sentry/pull/80528": {
+  "matches": {
+   "G1": "A11",
+   "G2": "A9"
+  },
+  "candidates": 14
+ },
+ "https://github.com/getsentry/sentry/pull/93824": {
+  "matches": {
+   "G1": "A10",
+   "G2": "A8",
+   "G3": "A1",
+   "G4": "A8",
+   "G5": "A7"
+  },
+  "candidates": 11
+ },
+ "https://github.com/getsentry/sentry/pull/95633": {
+  "matches": {},
+  "candidates": 25
+ },
+ "https://github.com/ai-code-review-evaluation/sentry-greptile/pull/1": {
+  "matches": {
+   "G1": "A4",
+   "G2": "A1",
+   "G3": "A2"
+  },
+  "candidates": 10
+ },
+ "https://github.com/ai-code-review-evaluation/sentry-greptile/pull/2": {
+  "matches": {
+   "G1": "A4",
+   "G3": "A3",
+   "G4": "A1"
+  },
+  "candidates": 20
+ },
+ "https://github.com/ai-code-review-evaluation/sentry-greptile/pull/3": {
+  "matches": {
+   "G3": "A6"
+  },
+  "candidates": 16
+ },
+ "https://github.com/ai-code-review-evaluation/sentry-greptile/pull/5": {
+  "matches": {
+   "G3": "A17",
+   "G4": "A13",
+   "G5": "A19"
+  },
+  "candidates": 30
+ },
+ "https://github.com/ai-code-review-evaluation/keycloak-greptile/pull/1": {
+  "matches": {
+   "G1": "A1",
+   "G2": "A2"
+  },
+  "candidates": 7
+ }
+}

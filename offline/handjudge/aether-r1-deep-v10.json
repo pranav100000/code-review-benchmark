@@ -1,0 +1,11 @@
+{
+ "https://github.com/calcom/cal.com/pull/10600": {
+  "matches": {
+   "G1": "A19",
+   "G2": "A21",
+   "G4": "A2",
+   "G5": "A14"
+  },
+  "candidates": 22
+ }
+}

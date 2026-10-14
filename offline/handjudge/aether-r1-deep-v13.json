@@ -1,0 +1,130 @@
+{
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/2": {
+  "matches": {
+   "G1": "A4"
+  },
+  "candidates": 18
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/5": {
+  "matches": {
+   "G2": "A10"
+  },
+  "candidates": 12
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/4": {
+  "matches": {
+   "G1": "A8",
+   "G2": "A10",
+   "G5": "A6"
+  },
+  "candidates": 30
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/8": {
+  "matches": {
+   "G1": "A16",
+   "G2": "A7",
+   "G3": "A19",
+   "G4": "A6",
+   "G5": "A29"
+  },
+  "candidates": 30
+ },
+ "https://github.com/grafana/grafana/pull/79265": {
+  "matches": {
+   "G1": "A3",
+   "G2": "A10",
+   "G4": "A8",
+   "G5": "A1"
+  },
+  "candidates": 16
+ },
+ "https://github.com/grafana/grafana/pull/80329": {
+  "matches": {
+   "G1": "A6",
+   "G2": "A5"
+  },
+  "candidates": 11
+ },
+ "https://github.com/grafana/grafana/pull/97529": {
+  "matches": {
+   "G1": "A1",
+   "G2": "A3"
+  },
+  "candidates": 12
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/1": {
+  "matches": {
+   "G1": "A2",
+   "G2": "A9",
+   "G3": "A5",
+   "G4": "A3"
+  },
+  "candidates": 13
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/3": {
+  "matches": {
+   "G1": "A3",
+   "G3": "A1"
+  },
+  "candidates": 15
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/6": {
+  "matches": {
+   "G1": "A5"
+  },
+  "candidates": 10
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/7": {
+  "matches": {
+   "G2": "A3"
+  },
+  "candidates": 12
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/9": {
+  "matches": {
+   "G1": "A5"
+  },
+  "candidates": 8
+ },
+ "https://github.com/grafana/grafana/pull/103633": {
+  "matches": {
+   "G2": "A6",
+   "G3": "A2"
+  },
+  "candidates": 8
+ },
+ "https://github.com/grafana/grafana/pull/106778": {
+  "matches": {
+   "G1": "A10",
+   "G2": "A3"
+  },
+  "candidates": 17
+ },
+ "https://github.com/grafana/grafana/pull/107534": {
+  "matches": {
+   "G1": "A7"
+  },
+  "candidates": 7
+ },
+ "https://github.com/grafana/grafana/pull/76186": {
+  "matches": {
+   "G3": "A1"
+  },
+  "candidates": 2
+ },
+ "https://github.com/grafana/grafana/pull/90045": {
+  "matches": {
+   "G1": "A21",
+   "G2": "A11",
+   "G3": "A12"
+  },
+  "candidates": 22
+ },
+ "https://github.com/grafana/grafana/pull/94942": {
+  "matches": {
+   "G1": "A6",
+   "G2": "A5"
+  },
+  "candidates": 9
+ }
+}

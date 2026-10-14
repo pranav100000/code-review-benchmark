@@ -1,0 +1,20 @@
+{
+ "https://github.com/calcom/cal.com/pull/10600": {
+  "matches": {
+   "G1": "A18",
+   "G2": "A21",
+   "G4": "A2",
+   "G5": "A9"
+  },
+  "candidates": 21
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/4": {
+  "matches": {
+   "G1": "A5",
+   "G2": "A15",
+   "G5": "A2",
+   "G7": "A7"
+  },
+  "candidates": 30
+ }
+}

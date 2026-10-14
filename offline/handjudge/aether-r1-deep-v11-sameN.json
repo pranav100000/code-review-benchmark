@@ -1,0 +1,211 @@
+{
+ "https://github.com/calcom/cal.com/pull/10967": {
+  "matches": {
+   "G1": "A4",
+   "G3": "A6",
+   "G4": "A3",
+   "G6": "A15"
+  },
+  "candidates": 28
+ },
+ "https://github.com/calcom/cal.com/pull/22345": {
+  "matches": {
+   "G1": "A4"
+  },
+  "candidates": 4
+ },
+ "https://github.com/calcom/cal.com/pull/22532": {
+  "matches": {
+   "G1": "A4",
+   "G2": "A7",
+   "G3": "A12",
+   "G4": "A10"
+  },
+  "candidates": 26
+ },
+ "https://github.com/calcom/cal.com/pull/7232": {
+  "matches": {
+   "G1": "A5"
+  },
+  "candidates": 14
+ },
+ "https://github.com/calcom/cal.com/pull/8330": {
+  "matches": {
+   "G1": "A6",
+   "G2": "A5"
+  },
+  "candidates": 13
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/1": {
+  "matches": {
+   "G1": "A3",
+   "G2": "A9",
+   "G3": "A5",
+   "G4": "A4"
+  },
+  "candidates": 11
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/10": {
+  "matches": {
+   "G1": "A13",
+   "G2": "A12",
+   "G3": "A8",
+   "G4": "A3",
+   "G6": "A4",
+   "G7": "A1"
+  },
+  "candidates": 24
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/2": {
+  "matches": {
+   "G1": "A2"
+  },
+  "candidates": 18
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/3": {
+  "matches": {
+   "G1": "A6",
+   "G3": "A1"
+  },
+  "candidates": 9
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/4": {
+  "matches": {
+   "G1": "A2",
+   "G2": "A8",
+   "G5": "A5",
+   "G7": "A9"
+  },
+  "candidates": 30
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/5": {
+  "matches": {
+   "G2": "A7"
+  },
+  "candidates": 7
+ },
+ "https://github.com/calcom/cal.com/pull/10600": {
+  "matches": {
+   "G2": "A22",
+   "G4": "A2",
+   "G5": "A14"
+  },
+  "candidates": 22
+ },
+ "https://github.com/calcom/cal.com/pull/11059": {
+  "matches": {
+   "G1": "A6",
+   "G2": "A5",
+   "G3": "A1",
+   "G4": "A4",
+   "G5": "A4",
+   "G6": "A7",
+   "G7": "A16",
+   "G8": "A20",
+   "G9": "A22"
+  },
+  "candidates": 24
+ },
+ "https://github.com/calcom/cal.com/pull/14740": {
+  "matches": {
+   "G1": "A6",
+   "G2": "A3",
+   "G3": "A22",
+   "G4": "A5",
+   "G6": "A11"
+  },
+  "candidates": 29
+ },
+ "https://github.com/calcom/cal.com/pull/14943": {
+  "matches": {
+   "G1": "A3",
+   "G2": "A7"
+  },
+  "candidates": 8
+ },
+ "https://github.com/calcom/cal.com/pull/8087": {
+  "matches": {
+   "G2": "A3"
+  },
+  "candidates": 3
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/6": {
+  "matches": {
+   "G1": "A5"
+  },
+  "candidates": 9
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/7": {
+  "matches": {
+   "G2": "A5",
+   "G3": "A10",
+   "G5": "A5"
+  },
+  "candidates": 13
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/8": {
+  "matches": {
+   "G1": "A11",
+   "G2": "A6",
+   "G3": "A19",
+   "G4": "A5",
+   "G5": "A17"
+  },
+  "candidates": 23
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/9": {
+  "matches": {},
+  "candidates": 5
+ },
+ "https://github.com/grafana/grafana/pull/106778": {
+  "matches": {
+   "G1": "A9",
+   "G2": "A3"
+  },
+  "candidates": 15
+ },
+ "https://github.com/grafana/grafana/pull/107534": {
+  "matches": {},
+  "candidates": 6
+ },
+ "https://github.com/grafana/grafana/pull/103633": {
+  "matches": {
+   "G1": "A4",
+   "G2": "A5",
+   "G3": "A2"
+  },
+  "candidates": 10
+ },
+ "https://github.com/grafana/grafana/pull/76186": {
+  "matches": {
+   "G2": "A4",
+   "G3": "A2"
+  },
+  "candidates": 6
+ },
+ "https://github.com/grafana/grafana/pull/80329": {
+  "matches": {
+   "G1": "A4",
+   "G2": "A3"
+  },
+  "candidates": 7
+ },
+ "https://github.com/grafana/grafana/pull/79265": {
+  "matches": {
+   "G1": "A3",
+   "G2": "A9",
+   "G3": "A8",
+   "G4": "A10",
+   "G5": "A1"
+  },
+  "candidates": 18
+ },
+ "https://github.com/grafana/grafana/pull/90045": {
+  "matches": {
+   "G1": "A17",
+   "G2": "A8",
+   "G3": "A9"
+  },
+  "candidates": 20
+ }
+}

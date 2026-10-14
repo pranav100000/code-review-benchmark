@@ -1,0 +1,37 @@
+
+# Aether deep review
+
+Find every defect this pull request introduces or exposes, and publish each one once with a concrete trigger. A missed real defect costs far more than an extra comment, so this review is built for recall: several independent passes over the same diff, merged, and published without a confidence cutoff.
+
+## 1. Scope
+
+Review the pull request's changes from its merge base to its head, reading whatever repository context is needed to reason about them.
+
+In scope: defects in or adjacent to the changed code. Wrong behavior, security and authorization gaps, races and non-atomic updates, data loss or corruption, broken API and type contracts, material performance regressions, newly required behavior with no test, and comments, docs or error messages the change made untrue. Every severity counts, including low: dead code, a misleading name or message, a missing cleanup.
+
+Out of scope: style, naming and refactoring preferences; speculation without a concrete trigger; pre-existing problems the change does not touch; anything about the environment the review ran in.
+
+## 2. Independent reviewers
+
+Write a brief: the changed files, each hunk in one line, and the contracts, callers, tests and schemas the change touches. Test files, fixtures, migrations, stylesheets and scripts are changed code too and get the same scrutiny as application code. Then run five reviewers that each receive the diff, the brief and read access to the repository, and never see each other's output. Use the agent's subagent mechanism when it has one; otherwise run the five sequentially, each from a fresh start with only the brief, and keep their results in separate files so no pass reads another's notes.
+
+- **Coverage A and Coverage B** (identical instructions, run twice because two passes catch different things): walk every changed hunk and check null, undefined and empty-collection paths, including every lookup whose result can be absent and every function path with no return value; inverted or incomplete conditions and boundary errors; wrong comparison operators or reference equality where value equality was meant; promises created but not awaited, including inside forEach or map callbacks; hardcoded literals where a variable or field was meant; case, normalization and regex-anchoring mistakes when matching strings, such as a suffix match where a whole-domain match was meant; a query or filter whose new condition applies more widely than the sibling conditions around it; error handling that changes the response status or swallows failures; resources never released; branches the change makes unreachable; loops whose exit condition reads a value that does not change.
+- **Literals and definitions**: for every identifier, key, parameter name, HTTP verb, property, enum value, vendor-prefixed CSS property and numeric constant the diff introduces, open the thing it refers to (the route table, the schema, the type, the framework or browser documentation, the value before the change) and confirm it exists and means what the code assumes. Check that each changed file's contents match its name and purpose, that a test calls the route with the verb the router declares, and that every edit mirrored from one place to another preserves the original values.
+- **Contracts**: for every changed signature, return shape, schema, query or type, trace every caller and implementation across the repository and report each place that now disagrees with the change, including implementations of a changed interface that still declare the old shape. When a synchronous function became asynchronous, list every caller that still uses its result synchronously.
+- **State and failure paths**: read-modify-write sequences that are not atomic under concurrent requests, lazily initialized shared state read from several threads, stale reads, missing transactions, partial updates, retry and idempotency gaps, cancellation and resource lifecycle, authorization and tenant checks on changed paths; migrations whose new columns leave existing rows null or without the default the code assumes; sibling code paths that handle the same event asymmetrically, where one path persists or cleans up and the other does not; then construct concrete edge inputs and operational sequences for the changed behavior and trace each through the code until it produces a wrong result; and check that newly required behavior has a test and that changed comments, docs and messages are still true.
+
+Each reviewer returns atomic items, one defect per item: file and changed line, root cause, trigger (the input, state or sequence), observable bad outcome, evidence from the repository, suggested fix, severity (critical, high, medium, low). A reviewer reports every defect it has a concrete trigger for and nothing it does not.
+
+## 3. Merge
+
+Cluster the reviewers' items by underlying defect, not by wording or line. Keep the strongest trigger and evidence for each cluster. One item per defect. Merging removes duplicates only; it never removes a finding.
+
+## 4. Verify, cheaply and optionally
+
+Proof strengthens a finding; it never gates one. Where a cheap check exists, run it, cheapest first: the language's compiler or type checker on the changed package; a throwaway script under /tmp that calls the changed function with the item's trigger, with external services mocked; a focused test in the project's framework only if its dependencies install quickly. Installing a missing toolchain with sudo apt-get or running one from a Docker image is fine. Do not install the whole repository, do not run the full test suite (the change already passed CI with its defects in), do not let setup consume the review, and do not modify the checkout.
+
+## 5. Publish
+
+Post every merged item unless the repository shows its trigger is unreachable. Do not drop a finding because it depends on a particular input or state; that is what a trigger is.
+
+Write each finding as mechanism, then consequence, in one or two sentences, followed by the trigger and the fix, anchored to the changed line. Say when a check reproduced it. Severity: p1 only when you would block the merge yourself; other critical, high and medium findings are p2; low is nit. Post once, as a single review with all inline findings and a short summary. When nothing survives, say so in one sentence rather than inventing findings.

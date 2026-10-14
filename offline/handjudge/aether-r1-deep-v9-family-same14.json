@@ -1,0 +1,105 @@
+{
+ "https://github.com/calcom/cal.com/pull/10967": {
+  "matches": {
+   "G1": "A4",
+   "G3": "A11",
+   "G4": "A2",
+   "G6": "A24"
+  },
+  "candidates": 30
+ },
+ "https://github.com/calcom/cal.com/pull/14740": {
+  "matches": {
+   "G1": "A7",
+   "G2": "A4",
+   "G3": "A22",
+   "G4": "A8",
+   "G6": "A21"
+  },
+  "candidates": 30
+ },
+ "https://github.com/calcom/cal.com/pull/14943": {
+  "matches": {
+   "G1": "A2",
+   "G2": "A4"
+  },
+  "candidates": 6
+ },
+ "https://github.com/calcom/cal.com/pull/7232": {
+  "matches": {
+   "G1": "A5"
+  },
+  "candidates": 13
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/4": {
+  "matches": {
+   "G1": "A4",
+   "G2": "A6",
+   "G5": "A2"
+  },
+  "candidates": 30
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/5": {
+  "matches": {
+   "G2": "A9"
+  },
+  "candidates": 9
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/7": {
+  "matches": {
+   "G2": "A6",
+   "G3": "A8",
+   "G5": "A6"
+  },
+  "candidates": 9
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/8": {
+  "matches": {
+   "G1": "A17",
+   "G2": "A14",
+   "G3": "A20",
+   "G4": "A13",
+   "G5": "A19"
+  },
+  "candidates": 23
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/9": {
+  "matches": {},
+  "candidates": 4
+ },
+ "https://github.com/grafana/grafana/pull/103633": {
+  "matches": {
+   "G1": "A4",
+   "G2": "A5",
+   "G3": "A2"
+  },
+  "candidates": 8
+ },
+ "https://github.com/grafana/grafana/pull/107534": {
+  "matches": {},
+  "candidates": 9
+ },
+ "https://github.com/grafana/grafana/pull/76186": {
+  "matches": {
+   "G3": "A1"
+  },
+  "candidates": 3
+ },
+ "https://github.com/grafana/grafana/pull/79265": {
+  "matches": {
+   "G1": "A3",
+   "G2": "A9",
+   "G5": "A1"
+  },
+  "candidates": 11
+ },
+ "https://github.com/calcom/cal.com/pull/10600": {
+  "matches": {
+   "G1": "A19",
+   "G2": "A21",
+   "G4": "A2",
+   "G5": "A14"
+  },
+  "candidates": 22
+ }
+}
