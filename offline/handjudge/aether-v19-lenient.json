@@ -171,13 +171,11 @@
   "candidates": 12
  },
  "https://github.com/grafana/grafana/pull/103633": {
+  "candidates": 12,
   "matches": {
-   "kw": "A6",
-   "G1": "A6",
-   "G2": "A7",
-   "G3": "A2"
+   "kw": "A4"
   },
-  "candidates": 12
+  "flag": "target: a cached denial outlives a later grant until its 30-second TTL ends because refreshing permCache never invalidates denials (Greptile's one-line description says the entries never expire, which matches neither its own PR nor Martian's); A4 at service.go:117 states it; re-anchored 2026-10-19 from A6 (refresh cost)"
  },
  "https://github.com/grafana/grafana/pull/76186": {
   "matches": {
@@ -342,10 +340,10 @@
   "candidates": 14
  },
  "https://github.com/getsentry/sentry/pull/95633": {
-  "matches": {
-   "kw": "A1"
-  },
-  "candidates": 29
+  "candidates": 29,
+  "matches": {},
+  "regex": "rejected",
+  "flag": "target: the second `except queue.ShutDown` wrapped around the processor callback (queue_consumer.py:143), which exits the worker on a ShutDown raised by any other queue; only A3 mentions ShutDown (pool reuse); corrected 2026-10-19 from a keyword credit"
  },
  "https://github.com/getsentry/sentry/pull/80168": {
   "matches": {

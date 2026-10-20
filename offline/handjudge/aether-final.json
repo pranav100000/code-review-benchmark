@@ -115,10 +115,10 @@
   "candidates": 26
  },
  "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/6": {
-  "matches": {
-   "G1": "A12"
-  },
-  "candidates": 14
+  "candidates": 14,
+  "matches": {},
+  "regex": "rejected",
+  "flag": "A8 at user_serializer.rb:149 concludes the literal is fresh and the code safe; strict is a miss (lenient keeps the credit); corrected 2026-10-19"
  },
  "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/7": {
   "matches": {
@@ -177,13 +177,10 @@
   "candidates": 7
  },
  "https://github.com/grafana/grafana/pull/103633": {
-  "matches": {
-   "G1": "A4",
-   "G2": "A7",
-   "G3": "A2",
-   "kw": "A4"
-  },
-  "candidates": 10
+  "candidates": 10,
+  "matches": {},
+  "regex": "rejected",
+  "flag": "target: a cached denial outlives a later grant until its 30-second TTL ends because refreshing permCache never invalidates denials (Greptile's one-line description says the entries never expire, which matches neither its own PR nor Martian's); A3 (membership TTL) and A4 (refresh cost) do not state it; corrected 2026-10-19"
  },
  "https://github.com/grafana/grafana/pull/76186": {
   "matches": {
@@ -356,8 +353,10 @@
   "candidates": 14
  },
  "https://github.com/getsentry/sentry/pull/95633": {
+  "candidates": 21,
   "matches": {},
-  "candidates": 21
+  "regex": "rejected",
+  "flag": "target: the second `except queue.ShutDown` wrapped around the processor callback (queue_consumer.py:143), which exits the worker on a ShutDown raised by any other queue; A3 (:234 draining) matched the word 'shutdown'; corrected 2026-10-19"
  },
  "https://github.com/ai-code-review-evaluation/sentry-greptile/pull/5": {
   "matches": {

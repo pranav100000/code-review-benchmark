@@ -8,6 +8,8 @@ spec = importlib.util.spec_from_file_location("hj", "scripts/aether_hand_judge.p
 C = "https://github.com/calcom/cal.com/pull/"; D = "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/"; G = "https://github.com/grafana/grafana/pull/"
 SG = "https://github.com/ai-code-review-evaluation/sentry-greptile/pull/"; SS = "https://github.com/getsentry/sentry/pull/"; K = "https://github.com/keycloak/keycloak/pull/"; KG = "https://github.com/ai-code-review-evaluation/keycloak-greptile/pull/"
 # injected bug per PR: goldens that describe it, and/or a regex over inline comment text
+# kw=None means hand-only (since 2026-10-19): grafana 103633 = a cached denial outlives a later grant for its TTL; sentry 95633 = the second
+# except queue.ShutDown around the processor callback. Their old regexes credited refresh-cost comments and any mention of ShutDown.
 BUGS = {
   C+"8087": dict(g=["G2"], kw=r"forEach.*async|async.*forEach|unawaited|not awaited|discard.*promise"),
   C+"10600": dict(g=["G4"], kw=r"(reuse|more than once|twice|not invalidated|single.use|consum).*backup|backup code.*(reuse|twice|more than once|not invalidated|atomic)"),
@@ -15,14 +17,14 @@ BUGS = {
   C+"7232": dict(g=["G2"], kw=r"(orphan|never deleted|not deleted|leaves the row|row remains).*(reminder|record)|WorkflowReminder.*(orphan|not deleted|never deleted)"),
   C+"8330": dict(g=["G1"]), C+"11059": dict(g=[], kw=r"timing attack|timing.safe|constant.time|timingSafeEqual"),
   C+"14943": dict(g=["G2"]), C+"14740": dict(g=["G1"]), C+"22532": dict(g=["G1"]),
-  G+"79265": dict(g=["G1"]), G+"103633": dict(g=[], kw=r"(denial|denied|deny).{0,80}(TTL|expir|never expire|permanent|outlive|no expiry)|(TTL|expir).{0,80}(denial|denied)"),
+  G+"79265": dict(g=["G1"]), G+"103633": dict(g=[], kw=None),
   G+"76186": dict(g=["G1", "G3"]),  # Greptile graded 'undefined endpoint constants' as its catch; they are defined in utils.go
   G+"107534": dict(g=[], kw=r"interpolat.*(again|twice|second|re-?interpret|double)|double interpolation"),
   G+"106778": dict(g=["G1"]), G+"90045": dict(g=["G2"]), G+"80329": dict(g=["G1"]), G+"90939": dict(g=["G1", "G2"]), G+"94942": dict(g=["G1"]), G+"97529": dict(g=["G1", "G2"]),
   D+"1": dict(g=["G1"]), D+"2": dict(g=["G1"]), D+"3": dict(g=["G1"]), D+"4": dict(g=["G1"]), D+"5": dict(g=["G1"]),
   D+"6": dict(g=[], kw=r"<<|mutat|frozen|in.place|shared string"), D+"7": dict(g=["G1", "G2", "G3", "G4", "G5"]), D+"8": dict(g=["G1"]), D+"9": dict(g=["G1"]), D+"10": dict(g=["G1"]),
   SG+"1": dict(g=["G1"]), SG+"2": dict(g=["G1"]), SG+"3": dict(g=["G1"]), SS+"67876": dict(g=["G1"]), SG+"5": dict(g=["G2"], kw=r"detector_type"), SS+"93824": dict(g=["G1"]), SS+"77754": dict(g=["G1"]),
-  SS+"80528": dict(g=["G1"]), SS+"95633": dict(g=[], kw=r"queue\.ShutDown|ShutDown"), SS+"80168": dict(g=["G1"]),
+  SS+"80528": dict(g=["G1"]), SS+"95633": dict(g=[], kw=None), SS+"80168": dict(g=["G1"]),
   KG+"1": dict(g=["G1"]), K+"32918": dict(g=["G1"]), K+"33832": dict(g=["G1"]), K+"36882": dict(g=["G1"]), K+"36880": dict(g=["G1"]), K+"37038": dict(g=["G1"]), K+"37429": dict(g=["G1"]), K+"37634": dict(g=["G1"]), K+"38446": dict(g=["G1"]), K+"40940": dict(g=["G1"]),
 }
 data = hj.load_data()
@@ -45,7 +47,7 @@ def score(tool, decision_files):
         if url in dec and any(g in dec[url]["matches"] for g in spec_["g"]): hit = True
         if not hit and url in dec and dec[url]["matches"].get("kw"):  # hand-judged keyword catch recorded in the handjudge file
             hit = True
-        if not hit and spec_.get("kw"):
+        if not hit and spec_.get("kw") and dec.get(url, {}).get("regex") != "rejected":  # a decision may reject a textual regex match
             text = " ".join((c.get("body") or "") for c in review["review_comments"] if c.get("path"))
             hit = re.search(spec_["kw"], text, re.I) is not None
         caught += hit
@@ -80,6 +82,12 @@ tools = {"v3": ("aether-r1-deep-v3", ["handjudge/aether-r1-deep-v3.json"]),
     "v21S": ("aether-v21", ["handjudge/aether-v21.json"]),
     "v22": ("aether-v22", ["handjudge/aether-v22-lenient.json"]),
     "v22S": ("aether-v22", ["handjudge/aether-v22.json"]),
+    "grep": ("greptile", ["handjudge/greptile-lenient.json"]),
+    "grepS": ("greptile", ["handjudge/greptile.json"]),
+    "grep5": ("greptile-v5", ["handjudge/greptile-v5-lenient.json"]),
+    "grep5S": ("greptile-v5", ["handjudge/greptile-v5.json"]),
+    "grep07": ("greptile-2025-07", ["handjudge/greptile-2025-07-lenient.json"]),
+    "grep07S": ("greptile-2025-07", ["handjudge/greptile-2025-07.json"]),
          "v12-14": ("MULTI", ["handjudge/aether-r1-deep-v12.json", "handjudge/aether-r1-deep-v13.json", "handjudge/aether-r1-deep-v14.json"])}
 for name, (tool, files) in tools.items():
     if not all(glob.glob(f) for f in files): continue

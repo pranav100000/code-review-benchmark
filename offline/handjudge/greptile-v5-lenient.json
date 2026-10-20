@@ -1,0 +1,273 @@
+{
+ "https://github.com/calcom/cal.com/pull/8087": {
+  "candidates": 3,
+  "matches": {
+   "G2": "A2"
+  }
+ },
+ "https://github.com/calcom/cal.com/pull/10600": {
+  "candidates": 4,
+  "matches": {
+   "G4": "A1"
+  }
+ },
+ "https://github.com/calcom/cal.com/pull/10967": {
+  "candidates": 5,
+  "matches": {
+   "G1": "A1"
+  },
+  "flag": "A1 at EventManager.ts:118 names mainHostDestinationCalendar undefined for an empty destinationCalendar array and the throw; the golden names CalendarService; anchored on the consumer, same standard as Aether's anchoring flags"
+ },
+ "https://github.com/calcom/cal.com/pull/22345": {
+  "candidates": 2,
+  "matches": {
+   "kw": "A2"
+  },
+  "flag": "A2 at insightsBooking.ts:80 names the ungrouped top-level OR authorization fragment; the same composition framing Aether's catch was flagged for"
+ },
+ "https://github.com/calcom/cal.com/pull/7232": {
+  "candidates": 5,
+  "matches": {},
+  "flag": "A1 at emailReminderManager.ts:232 discusses the immediateDelete:false branch (row marked cancelled, cron sends later); nothing says the immediateDelete:true branch leaves the row"
+ },
+ "https://github.com/calcom/cal.com/pull/8330": {
+  "candidates": 5,
+  "matches": {
+   "G1": "A2"
+  }
+ },
+ "https://github.com/calcom/cal.com/pull/11059": {
+  "candidates": 6,
+  "matches": {}
+ },
+ "https://github.com/calcom/cal.com/pull/14943": {
+  "candidates": 5,
+  "matches": {},
+  "flag": "A5 at scheduleSMSReminders.ts:40 says the cleanup is too broad, but by scheduled state (scheduled rows with retryCount > 1), not by method; the missing SMS method filter is not named"
+ },
+ "https://github.com/calcom/cal.com/pull/14740": {
+  "candidates": 13,
+  "matches": {
+   "G1": "A4"
+  }
+ },
+ "https://github.com/calcom/cal.com/pull/22532": {
+  "candidates": 6,
+  "matches": {}
+ },
+ "https://github.com/grafana/grafana/pull/79265": {
+  "candidates": 3,
+  "matches": {
+   "G1": "A2"
+  }
+ },
+ "https://github.com/grafana/grafana/pull/103633": {
+  "candidates": 2,
+  "matches": {
+   "kw": "A2"
+  },
+  "flag": "target: a cached denial outlives a later grant until its 30-second TTL ends because refreshing permCache never invalidates denials (Greptile's one-line description says the entries never expire, which matches neither its own PR nor Martian's); A2 at service.go:121 states that a denial made before a grant still denies for the rest of the 30-second window; same target as Aether's catches"
+ },
+ "https://github.com/grafana/grafana/pull/76186": {
+  "candidates": 2,
+  "matches": {}
+ },
+ "https://github.com/grafana/grafana/pull/107534": {
+  "candidates": 2,
+  "matches": {},
+  "regex": "rejected",
+  "flag": "A1 and A2 are about empty expressions surviving the filter because interpolation now runs after it; the words 'interpolated ... second' would match the keyword rule, but double interpolation is not discussed"
+ },
+ "https://github.com/grafana/grafana/pull/106778": {
+  "candidates": 2,
+  "matches": {}
+ },
+ "https://github.com/grafana/grafana/pull/90045": {
+  "candidates": 6,
+  "matches": {
+   "G2": "A6"
+  },
+  "flag": "A1 at :45 and A6 at DeleteCollection's :166 name the swapped legacy/storage metric calls; same direction note as the January run"
+ },
+ "https://github.com/grafana/grafana/pull/80329": {
+  "candidates": 3,
+  "matches": {
+   "G1": "A3"
+  }
+ },
+ "https://github.com/grafana/grafana/pull/90939": {
+  "candidates": 2,
+  "matches": {
+   "G1": "A2"
+  }
+ },
+ "https://github.com/grafana/grafana/pull/94942": {
+  "candidates": 1,
+  "matches": {
+   "G1": "A1"
+  }
+ },
+ "https://github.com/grafana/grafana/pull/97529": {
+  "candidates": 2,
+  "matches": {
+   "G1": "A2"
+  }
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/1": {
+  "candidates": 5,
+  "matches": {
+   "G1": "A1"
+  }
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/2": {
+  "candidates": 4,
+  "matches": {
+   "G1": "A2"
+  }
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/3": {
+  "candidates": 3,
+  "matches": {
+   "G1": "A2"
+  },
+  "flag": "A2 frames the side effect as a lost-increment race on match_count; same framing flag as the January run and Aether"
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/4": {
+  "candidates": 9,
+  "matches": {},
+  "flag": "A2 and A9 name SSRF-shaped fetches through topic_embed.rb:48 and the Disqus importer; nothing names the unvalidated feed_polling_url fetch in poll_feed.rb"
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/5": {
+  "candidates": 1,
+  "matches": {}
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/6": {
+  "candidates": 1,
+  "matches": {}
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/7": {
+  "candidates": 7,
+  "matches": {
+   "G1": "A1",
+   "G2": "A4",
+   "G5": "A5"
+  }
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/8": {
+  "candidates": 5,
+  "matches": {
+   "G1": "A5"
+  }
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/9": {
+  "candidates": 1,
+  "matches": {}
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/10": {
+  "candidates": 7,
+  "matches": {},
+  "flag": "A6 and A7 are nil hosts in the controller when the id is stale, not the before_validation callback on a nil host"
+ },
+ "https://github.com/ai-code-review-evaluation/sentry-greptile/pull/1": {
+  "candidates": 3,
+  "matches": {
+   "G1": "A3"
+  }
+ },
+ "https://github.com/ai-code-review-evaluation/sentry-greptile/pull/2": {
+  "candidates": 7,
+  "matches": {
+   "G1": "A2"
+  }
+ },
+ "https://github.com/ai-code-review-evaluation/sentry-greptile/pull/3": {
+  "candidates": 5,
+  "matches": {},
+  "flag": "A5 at factories.py:355 (the file that holds _set_sample_rate_from_error_sampling) says the helper accepts impossible rates; it does not say that 0.0 is skipped"
+ },
+ "https://github.com/getsentry/sentry/pull/67876": {
+  "candidates": 2,
+  "matches": {},
+  "flag": "A2 sits on the injected line (integration.py:504) but claims a KeyError on integration.metadata, not the missing github_authenticated_user state; same as the January run"
+ },
+ "https://github.com/ai-code-review-evaluation/sentry-greptile/pull/5": {
+  "candidates": 4,
+  "matches": {}
+ },
+ "https://github.com/getsentry/sentry/pull/93824": {
+  "candidates": 4,
+  "matches": {}
+ },
+ "https://github.com/getsentry/sentry/pull/77754": {
+  "candidates": 3,
+  "matches": {}
+ },
+ "https://github.com/getsentry/sentry/pull/80528": {
+  "candidates": 0,
+  "matches": {},
+  "flag": "no inline comments"
+ },
+ "https://github.com/getsentry/sentry/pull/95633": {
+  "candidates": 5,
+  "matches": {},
+  "regex": "rejected",
+  "flag": "A3 at queue_consumer.py:234 is about stop flags being set before the queues drain; the words 'Queue.shutdown' would match the keyword rule, but the queue.ShutDown exception handling is not discussed"
+ },
+ "https://github.com/getsentry/sentry/pull/80168": {
+  "candidates": 2,
+  "matches": {
+   "G1": "A1"
+  }
+ },
+ "https://github.com/ai-code-review-evaluation/keycloak-greptile/pull/1": {
+  "candidates": 2,
+  "matches": {
+   "G1": "A1"
+  }
+ },
+ "https://github.com/keycloak/keycloak/pull/32918": {
+  "candidates": 4,
+  "matches": {}
+ },
+ "https://github.com/keycloak/keycloak/pull/33832": {
+  "candidates": 2,
+  "matches": {},
+  "flag": "A2 at CryptoIntegration.java:57 says equal order() values can select the wrong CryptoProvider; it does not name the AuthzClientCryptoProvider returning the default keystore provider; judged a different mechanism"
+ },
+ "https://github.com/keycloak/keycloak/pull/36882": {
+  "candidates": 1,
+  "matches": {}
+ },
+ "https://github.com/keycloak/keycloak/pull/36880": {
+  "candidates": 4,
+  "matches": {},
+  "flag": "A4 at AdminPermissions.java:88 is anchored on the removal listener but says it runs under V2 and throws; the golden says the V1 flag guard stops it from running"
+ },
+ "https://github.com/keycloak/keycloak/pull/37038": {
+  "candidates": 5,
+  "matches": {
+   "G1": "A2"
+  }
+ },
+ "https://github.com/keycloak/keycloak/pull/37429": {
+  "candidates": 6,
+  "matches": {
+   "G1": "A6"
+  },
+  "flag": "anchored on the account bundle messages_lt.properties:101; same anchoring note as Aether's flagged catch"
+ },
+ "https://github.com/keycloak/keycloak/pull/37634": {
+  "candidates": 4,
+  "matches": {}
+ },
+ "https://github.com/keycloak/keycloak/pull/38446": {
+  "candidates": 3,
+  "matches": {}
+ },
+ "https://github.com/keycloak/keycloak/pull/40940": {
+  "candidates": 2,
+  "matches": {
+   "G1": "A1"
+  }
+ }
+}

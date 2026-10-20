@@ -1,385 +1,384 @@
 {
-  "https://github.com/calcom/cal.com/pull/8087": {
-    "matches": {
-      "G2": "A1"
-    },
-    "candidates": 5
+ "https://github.com/calcom/cal.com/pull/8087": {
+  "matches": {
+   "G2": "A1"
   },
-  "https://github.com/calcom/cal.com/pull/10600": {
-    "matches": {
-      "G4": "A2",
-      "G2": "A15",
-      "G5": "A11"
-    },
-    "candidates": 21
+  "candidates": 5
+ },
+ "https://github.com/calcom/cal.com/pull/10600": {
+  "matches": {
+   "G4": "A2",
+   "G2": "A15",
+   "G5": "A11"
   },
-  "https://github.com/calcom/cal.com/pull/22345": {
-    "matches": {
-      "kw": "A1",
-      "G1": "A6"
-    },
-    "candidates": 6
+  "candidates": 21
+ },
+ "https://github.com/calcom/cal.com/pull/22345": {
+  "matches": {
+   "kw": "A1",
+   "G1": "A6"
   },
-  "https://github.com/calcom/cal.com/pull/8330": {
-    "matches": {
-      "G1": "A6",
-      "G2": "A5"
-    },
-    "candidates": 18
+  "candidates": 6
+ },
+ "https://github.com/calcom/cal.com/pull/8330": {
+  "matches": {
+   "G1": "A6",
+   "G2": "A5"
   },
-  "https://github.com/calcom/cal.com/pull/14943": {
-    "matches": {
-      "G2": "A5",
-      "G1": "A3"
-    },
-    "candidates": 7
+  "candidates": 18
+ },
+ "https://github.com/calcom/cal.com/pull/14943": {
+  "matches": {
+   "G2": "A5",
+   "G1": "A3"
   },
-  "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/1": {
-    "matches": {
-      "G1": "A2",
-      "G2": "A8",
-      "G3": "A4",
-      "G4": "A3"
-    },
-    "candidates": 17
+  "candidates": 7
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/1": {
+  "matches": {
+   "G1": "A2",
+   "G2": "A8",
+   "G3": "A4",
+   "G4": "A3"
   },
-  "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/3": {
-    "matches": {
-      "G1": "A4",
-      "G3": "A2"
-    },
-    "candidates": 19
+  "candidates": 17
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/3": {
+  "matches": {
+   "G1": "A4",
+   "G3": "A2"
   },
-  "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/5": {
-    "matches": {
-      "G1": "A5",
-      "G2": "A11",
-      "G3": "A10"
-    },
-    "candidates": 12,
-    "flag": "A5 names the removal of both floats with an IE9 trigger, anchored on the title float at :19; A6 at :37 covers the auto-margin replacement under the legacy box model (same judgment call as v18/v19/ablation)"
+  "candidates": 19
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/5": {
+  "matches": {
+   "G1": "A5",
+   "G2": "A11",
+   "G3": "A10"
   },
-  "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/6": {
-    "matches": {
-      "kw": "A14",
-      "G1": "A4"
-    },
-    "candidates": 16
+  "candidates": 12,
+  "flag": "A5 names the removal of both floats with an IE9 trigger, anchored on the title float at :19; A6 at :37 covers the auto-margin replacement under the legacy box model (same judgment call as v18/v19/ablation)"
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/6": {
+  "matches": {
+   "kw": "A14",
+   "G1": "A4"
   },
-  "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/9": {
-    "matches": {
-      "G1": "A6"
-    },
-    "candidates": 6
+  "candidates": 16
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/9": {
+  "matches": {
+   "G1": "A6"
   },
-  "https://github.com/calcom/cal.com/pull/10967": {
-    "matches": {
-      "G1": "A2",
-      "G3": "A7",
-      "G4": "A16",
-      "G6": "A12"
-    },
-    "candidates": 25
+  "candidates": 6
+ },
+ "https://github.com/calcom/cal.com/pull/10967": {
+  "matches": {
+   "G1": "A2",
+   "G3": "A7",
+   "G4": "A16",
+   "G6": "A12"
   },
-  "https://github.com/calcom/cal.com/pull/14740": {
-    "matches": {
-      "G1": "A6",
-      "G2": "A5",
-      "G3": "A27",
-      "G4": "A7",
-      "G6": "A19"
-    },
-    "candidates": 30
+  "candidates": 25
+ },
+ "https://github.com/calcom/cal.com/pull/14740": {
+  "matches": {
+   "G1": "A6",
+   "G2": "A5",
+   "G3": "A27",
+   "G4": "A7",
+   "G6": "A19"
   },
-  "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/2": {
-    "matches": {
-      "G1": "A3"
-    },
-    "candidates": 23
+  "candidates": 30
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/2": {
+  "matches": {
+   "G1": "A3"
   },
-  "https://github.com/grafana/grafana/pull/103633": {
-    "matches": {
-      "kw": "A6",
-      "G1": "A6",
-      "G2": "A12",
-      "G3": "A4"
-    },
-    "candidates": 15
+  "candidates": 23
+ },
+ "https://github.com/grafana/grafana/pull/103633": {
+  "candidates": 15,
+  "matches": {
+   "kw": "A5"
   },
-  "https://github.com/grafana/grafana/pull/79265": {
-    "matches": {
-      "G1": "A1",
-      "G2": "A5",
-      "G4": "A8"
-    },
-    "candidates": 15
+  "flag": "target: a cached denial outlives a later grant until its 30-second TTL ends because refreshing permCache never invalidates denials (Greptile's one-line description says the entries never expire, which matches neither its own PR nor Martian's); A5 at service.go:117 states it; re-anchored 2026-10-19 from A6 (refresh cost)"
+ },
+ "https://github.com/grafana/grafana/pull/79265": {
+  "matches": {
+   "G1": "A1",
+   "G2": "A5",
+   "G4": "A8"
   },
-  "https://github.com/grafana/grafana/pull/80329": {
-    "matches": {
-      "G1": "A1",
-      "G2": "A4"
-    },
-    "candidates": 13
+  "candidates": 15
+ },
+ "https://github.com/grafana/grafana/pull/80329": {
+  "matches": {
+   "G1": "A1",
+   "G2": "A4"
   },
-  "https://github.com/grafana/grafana/pull/94942": {
-    "matches": {
-      "G1": "A3",
-      "G2": "A1"
-    },
-    "candidates": 8,
-    "flag": "treats the always-false helper as deliberate removal, same framing as the production, ablation, v18 and v19 catches"
+  "candidates": 13
+ },
+ "https://github.com/grafana/grafana/pull/94942": {
+  "matches": {
+   "G1": "A3",
+   "G2": "A1"
   },
-  "https://github.com/grafana/grafana/pull/97529": {
-    "matches": {
-      "G1": "A2",
-      "G2": "A3"
-    },
-    "candidates": 11
+  "candidates": 8,
+  "flag": "treats the always-false helper as deliberate removal, same framing as the production, ablation, v18 and v19 catches"
+ },
+ "https://github.com/grafana/grafana/pull/97529": {
+  "matches": {
+   "G1": "A2",
+   "G2": "A3"
   },
-  "https://github.com/keycloak/keycloak/pull/36882": {
-    "matches": {},
-    "candidates": 6
+  "candidates": 11
+ },
+ "https://github.com/keycloak/keycloak/pull/36882": {
+  "matches": {},
+  "candidates": 6
+ },
+ "https://github.com/grafana/grafana/pull/90045": {
+  "matches": {
+   "G2": "A9",
+   "G1": "A16",
+   "G3": "A10"
   },
-  "https://github.com/grafana/grafana/pull/90045": {
-    "matches": {
-      "G2": "A9",
-      "G1": "A16",
-      "G3": "A10"
-    },
-    "candidates": 26
+  "candidates": 26
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/4": {
+  "matches": {
+   "G1": "A10",
+   "G2": "A12",
+   "G5": "A8",
+   "G6": "A1",
+   "G7": "A5"
   },
-  "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/4": {
-    "matches": {
-      "G1": "A10",
-      "G2": "A12",
-      "G5": "A8",
-      "G6": "A1",
-      "G7": "A5"
-    },
-    "candidates": 30,
-    "flag": "p2 anchored on topic_embed.rb:48 says 'PollFeed likewise opens its setting directly' (names the job and the statement, not the line number); same judgment call as the ablation and v19"
+  "candidates": 30,
+  "flag": "p2 anchored on topic_embed.rb:48 says 'PollFeed likewise opens its setting directly' (names the job and the statement, not the line number); same judgment call as the ablation and v19"
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/10": {
+  "matches": {
+   "G1": "A9",
+   "G2": "A10",
+   "G3": "A8",
+   "G6": "A5",
+   "G7": "A1"
   },
-  "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/10": {
-    "matches": {
-      "G1": "A9",
-      "G2": "A10",
-      "G3": "A8",
-      "G6": "A5",
-      "G7": "A1"
-    },
-    "candidates": 30
+  "candidates": 30
+ },
+ "https://github.com/ai-code-review-evaluation/keycloak-greptile/pull/1": {
+  "matches": {
+   "G1": "A1",
+   "G2": "A2"
   },
-  "https://github.com/ai-code-review-evaluation/keycloak-greptile/pull/1": {
-    "matches": {
-      "G1": "A1",
-      "G2": "A2"
-    },
-    "candidates": 9
+  "candidates": 9
+ },
+ "https://github.com/keycloak/keycloak/pull/32918": {
+  "matches": {
+   "G2": "A5"
   },
-  "https://github.com/keycloak/keycloak/pull/32918": {
-    "matches": {
-      "G2": "A5"
-    },
-    "candidates": 10
+  "candidates": 10
+ },
+ "https://github.com/keycloak/keycloak/pull/33832": {
+  "matches": {
+   "G1": "A9",
+   "G2": "A28",
+   "G3": "A5",
+   "G4": "A2"
   },
-  "https://github.com/keycloak/keycloak/pull/33832": {
-    "matches": {
-      "G1": "A9",
-      "G2": "A28",
-      "G3": "A5",
-      "G4": "A2"
-    },
-    "candidates": 30,
-    "flag": "A9 calls the default-keystore lookup an unrelated startup dependency without saying 'wrong provider'; same framing as the production and v18 catches"
+  "candidates": 30,
+  "flag": "A9 calls the default-keystore lookup an unrelated startup dependency without saying 'wrong provider'; same framing as the production and v18 catches"
+ },
+ "https://github.com/keycloak/keycloak/pull/37429": {
+  "matches": {
+   "G1": "A3",
+   "G2": "A8"
   },
-  "https://github.com/keycloak/keycloak/pull/37429": {
-    "matches": {
-      "G1": "A3",
-      "G2": "A8"
-    },
-    "candidates": 14,
-    "flag": "anchored on the mirrored account bundle (messages_lt.properties:101) and names the login bundle line 71 as the same Italian copy"
+  "candidates": 14,
+  "flag": "anchored on the mirrored account bundle (messages_lt.properties:101) and names the login bundle line 71 as the same Italian copy"
+ },
+ "https://github.com/grafana/grafana/pull/106778": {
+  "matches": {
+   "G1": "A9",
+   "G2": "A3"
   },
-  "https://github.com/grafana/grafana/pull/106778": {
-    "matches": {
-      "G1": "A9",
-      "G2": "A3"
-    },
-    "candidates": 25
+  "candidates": 25
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/8": {
+  "matches": {
+   "G1": "A15",
+   "G2": "A9",
+   "G4": "A8"
   },
-  "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/8": {
-    "matches": {
-      "G1": "A15",
-      "G2": "A9",
-      "G4": "A8"
-    },
-    "candidates": 30
+  "candidates": 30
+ },
+ "https://github.com/ai-code-review-evaluation/sentry-greptile/pull/1": {
+  "matches": {
+   "G1": "A3",
+   "G2": "A1",
+   "G3": "A2"
   },
-  "https://github.com/ai-code-review-evaluation/sentry-greptile/pull/1": {
-    "matches": {
-      "G1": "A3",
-      "G2": "A1",
-      "G3": "A2"
-    },
-    "candidates": 6
+  "candidates": 6
+ },
+ "https://github.com/ai-code-review-evaluation/sentry-greptile/pull/2": {
+  "matches": {
+   "G1": "A4",
+   "G3": "A3",
+   "G4": "A1"
   },
-  "https://github.com/ai-code-review-evaluation/sentry-greptile/pull/2": {
-    "matches": {
-      "G1": "A4",
-      "G3": "A3",
-      "G4": "A1"
-    },
-    "candidates": 16
+  "candidates": 16
+ },
+ "https://github.com/ai-code-review-evaluation/sentry-greptile/pull/3": {
+  "matches": {
+   "G1": "A10",
+   "G3": "A7"
   },
-  "https://github.com/ai-code-review-evaluation/sentry-greptile/pull/3": {
-    "matches": {
-      "G1": "A10",
-      "G3": "A7"
-    },
-    "candidates": 20,
-    "flag": "A10 at the injected line calls the truthiness check a defect because it stands in for range validation (accepts 1.5, negatives, strings); it does not mention the skipped 0.0 that the golden describes"
+  "candidates": 20,
+  "flag": "A10 at the injected line calls the truthiness check a defect because it stands in for range validation (accepts 1.5, negatives, strings); it does not mention the skipped 0.0 that the golden describes"
+ },
+ "https://github.com/getsentry/sentry/pull/67876": {
+  "matches": {
+   "G2": "A1",
+   "G3": "A6"
   },
-  "https://github.com/getsentry/sentry/pull/67876": {
-    "matches": {
-      "G2": "A1",
-      "G3": "A6"
-    },
-    "candidates": 19
+  "candidates": 19
+ },
+ "https://github.com/getsentry/sentry/pull/93824": {
+  "matches": {
+   "G1": "A8",
+   "G3": "A1",
+   "G4": "A9",
+   "G5": "A6"
   },
-  "https://github.com/getsentry/sentry/pull/93824": {
-    "matches": {
-      "G1": "A8",
-      "G3": "A1",
-      "G4": "A9",
-      "G5": "A6"
-    },
-    "candidates": 11
+  "candidates": 11
+ },
+ "https://github.com/getsentry/sentry/pull/77754": {
+  "matches": {
+   "G1": "A1"
   },
-  "https://github.com/getsentry/sentry/pull/77754": {
-    "matches": {
-      "G1": "A1"
-    },
-    "candidates": 8
+  "candidates": 8
+ },
+ "https://github.com/getsentry/sentry/pull/80528": {
+  "matches": {
+   "G1": "A11"
   },
-  "https://github.com/getsentry/sentry/pull/80528": {
-    "matches": {
-      "G1": "A11"
-    },
-    "candidates": 25
+  "candidates": 25
+ },
+ "https://github.com/getsentry/sentry/pull/95633": {
+  "candidates": 30,
+  "matches": {
+   "kw": "A15"
   },
-  "https://github.com/getsentry/sentry/pull/95633": {
-    "matches": {
-      "kw": "A1"
-    },
-    "candidates": 30
+  "flag": "target: the second `except queue.ShutDown` wrapped around the processor callback (queue_consumer.py:143), which exits the worker on a ShutDown raised by any other queue; A15 at queue_consumer.py:142 names it; re-anchored 2026-10-19 from A1 (pool reuse)"
+ },
+ "https://github.com/getsentry/sentry/pull/80168": {
+  "matches": {
+   "G1": "A1",
+   "G2": "A6"
   },
-  "https://github.com/getsentry/sentry/pull/80168": {
-    "matches": {
-      "G1": "A1",
-      "G2": "A6"
-    },
-    "candidates": 14
+  "candidates": 14
+ },
+ "https://github.com/keycloak/keycloak/pull/36880": {
+  "matches": {
+   "G1": "A5",
+   "G3": "A8",
+   "G5": "A11"
   },
-  "https://github.com/keycloak/keycloak/pull/36880": {
-    "matches": {
-      "G1": "A5",
-      "G3": "A8",
-      "G5": "A11"
-    },
-    "candidates": 16
+  "candidates": 16
+ },
+ "https://github.com/keycloak/keycloak/pull/37038": {
+  "matches": {
+   "G1": "A1",
+   "G2": "A3"
   },
-  "https://github.com/keycloak/keycloak/pull/37038": {
-    "matches": {
-      "G1": "A1",
-      "G2": "A3"
-    },
-    "candidates": 17
+  "candidates": 17
+ },
+ "https://github.com/keycloak/keycloak/pull/37634": {
+  "matches": {
+   "G1": "A4",
+   "G2": "A2",
+   "G3": "A3",
+   "G4": "A5"
   },
-  "https://github.com/keycloak/keycloak/pull/37634": {
-    "matches": {
-      "G1": "A4",
-      "G2": "A2",
-      "G3": "A3",
-      "G4": "A5"
-    },
-    "candidates": 25
+  "candidates": 25
+ },
+ "https://github.com/keycloak/keycloak/pull/40940": {
+  "matches": {
+   "G1": "A3",
+   "G2": "A2"
   },
-  "https://github.com/keycloak/keycloak/pull/40940": {
-    "matches": {
-      "G1": "A3",
-      "G2": "A2"
-    },
-    "candidates": 5
+  "candidates": 5
+ },
+ "https://github.com/grafana/grafana/pull/76186": {
+  "matches": {
+   "G1": "A4",
+   "G2": "A3",
+   "G3": "A1"
   },
-  "https://github.com/grafana/grafana/pull/76186": {
-    "matches": {
-      "G1": "A4",
-      "G2": "A3",
-      "G3": "A1"
-    },
-    "candidates": 7
+  "candidates": 7
+ },
+ "https://github.com/grafana/grafana/pull/107534": {
+  "matches": {
+   "kw": "A1"
   },
-  "https://github.com/grafana/grafana/pull/107534": {
-    "matches": {
-      "kw": "A1"
-    },
-    "candidates": 9
+  "candidates": 9
+ },
+ "https://github.com/grafana/grafana/pull/90939": {
+  "matches": {
+   "G1": "A1"
   },
-  "https://github.com/grafana/grafana/pull/90939": {
-    "matches": {
-      "G1": "A1"
-    },
-    "candidates": 4
+  "candidates": 4
+ },
+ "https://github.com/calcom/cal.com/pull/7232": {
+  "matches": {
+   "G1": "A4"
   },
-  "https://github.com/calcom/cal.com/pull/7232": {
-    "matches": {
-      "G1": "A4"
-    },
-    "candidates": 11
+  "candidates": 11
+ },
+ "https://github.com/calcom/cal.com/pull/11059": {
+  "matches": {
+   "G1": "A5",
+   "G2": "A4",
+   "G3": "A1",
+   "G4": "A3",
+   "G6": "A8",
+   "G7": "A20",
+   "G9": "A19"
   },
-  "https://github.com/calcom/cal.com/pull/11059": {
-    "matches": {
-      "G1": "A5",
-      "G2": "A4",
-      "G3": "A1",
-      "G4": "A3",
-      "G6": "A8",
-      "G7": "A20",
-      "G9": "A19"
-    },
-    "candidates": 30
+  "candidates": 30
+ },
+ "https://github.com/calcom/cal.com/pull/22532": {
+  "matches": {
+   "G1": "A9",
+   "G2": "A5",
+   "G3": "A15",
+   "G4": "A14"
   },
-  "https://github.com/calcom/cal.com/pull/22532": {
-    "matches": {
-      "G1": "A9",
-      "G2": "A5",
-      "G3": "A15",
-      "G4": "A14"
-    },
-    "candidates": 28
+  "candidates": 28
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/7": {
+  "matches": {
+   "G1": "A15",
+   "G2": "A5",
+   "G3": "A14",
+   "G4": "A15",
+   "G5": "A5"
   },
-  "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/7": {
-    "matches": {
-      "G1": "A15",
-      "G2": "A5",
-      "G3": "A14",
-      "G4": "A15",
-      "G5": "A5"
-    },
-    "candidates": 18
+  "candidates": 18
+ },
+ "https://github.com/keycloak/keycloak/pull/38446": {
+  "matches": {},
+  "candidates": 21,
+  "flag": "judged from the posted review by hand before download: no comment mentions Optional.get, isPresent or NoSuchElementException; comment 7 names the unset credential id (G2, not scored)"
+ },
+ "https://github.com/ai-code-review-evaluation/sentry-greptile/pull/5": {
+  "matches": {
+   "G3": "A17",
+   "G4": "A18",
+   "G5": "A23"
   },
-  "https://github.com/keycloak/keycloak/pull/38446": {
-    "matches": {},
-    "candidates": 21,
-    "flag": "judged from the posted review by hand before download: no comment mentions Optional.get, isPresent or NoSuchElementException; comment 7 names the unset credential id (G2, not scored)"
-  },
-  "https://github.com/ai-code-review-evaluation/sentry-greptile/pull/5": {
-    "matches": {
-      "G3": "A17",
-      "G4": "A18",
-      "G5": "A23"
-    },
-    "candidates": 30,
-    "flag": "injected G2/kw (BaseDetectorTypeValidator reads detector_type instead of type): none of the 30 inline comments touches detector.py; strict MISS, lenient via G3/G4/G5"
-  }
+  "candidates": 30,
+  "flag": "injected G2/kw (BaseDetectorTypeValidator reads detector_type instead of type): none of the 30 inline comments touches detector.py; strict MISS, lenient via G3/G4/G5"
+ }
 }

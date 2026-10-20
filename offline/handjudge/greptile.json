@@ -1,0 +1,278 @@
+{
+ "https://github.com/calcom/cal.com/pull/8087": {
+  "candidates": 0,
+  "matches": {},
+  "flag": "no inline comments; the review's two general comments mention forEach/await, but summaries are not graded on either side"
+ },
+ "https://github.com/calcom/cal.com/pull/10600": {
+  "candidates": 4,
+  "matches": {},
+  "flag": "A1 at next-auth-options.ts:147 says nulling the used code prevents reuse (calls the code safe); nothing on concurrent reuse"
+ },
+ "https://github.com/calcom/cal.com/pull/10967": {
+  "candidates": 3,
+  "matches": {
+   "G1": "A1"
+  },
+  "flag": "A1 at EventManager.ts:119 names mainHostDestinationCalendar undefined when the array is empty or null and the resulting crash; the golden names CalendarService; anchored on the consumer, same standard as Aether's anchoring flags"
+ },
+ "https://github.com/calcom/cal.com/pull/22345": {
+  "candidates": 1,
+  "matches": {},
+  "regex": "rejected",
+  "flag": "A1 says ANY(${[]}) on an empty teamIds makes invalid SQL, a different mechanism from the ungrouped OR composition; the words 'invalid SQL' would match the keyword rule, so the rule is overridden here"
+ },
+ "https://github.com/calcom/cal.com/pull/7232": {
+  "candidates": 5,
+  "matches": {
+   "G2": "A3"
+  }
+ },
+ "https://github.com/calcom/cal.com/pull/8330": {
+  "candidates": 2,
+  "matches": {
+   "G1": "A1"
+  }
+ },
+ "https://github.com/calcom/cal.com/pull/11059": {
+  "candidates": 8,
+  "matches": {
+   "kw": "A1"
+  }
+ },
+ "https://github.com/calcom/cal.com/pull/14943": {
+  "candidates": 2,
+  "matches": {
+   "G2": "A1"
+  }
+ },
+ "https://github.com/calcom/cal.com/pull/14740": {
+  "candidates": 6,
+  "matches": {
+   "G1": "A2"
+  }
+ },
+ "https://github.com/calcom/cal.com/pull/22532": {
+  "candidates": 2,
+  "matches": {},
+  "flag": "A1 at CalendarService.ts:1024 names the line and suggests the exact fix but states that the empty update object does trigger @updatedAt, the opposite of the defect; a grader who credits the suggestion would count it"
+ },
+ "https://github.com/grafana/grafana/pull/79265": {
+  "candidates": 3,
+  "matches": {
+   "G1": "A1"
+  }
+ },
+ "https://github.com/grafana/grafana/pull/103633": {
+  "candidates": 2,
+  "matches": {},
+  "flag": "A2 discusses the denial cache key, not the missing expiry"
+ },
+ "https://github.com/grafana/grafana/pull/76186": {
+  "candidates": 0,
+  "matches": {},
+  "flag": "no inline comments"
+ },
+ "https://github.com/grafana/grafana/pull/107534": {
+  "candidates": 0,
+  "matches": {},
+  "flag": "no inline comments"
+ },
+ "https://github.com/grafana/grafana/pull/106778": {
+  "candidates": 0,
+  "matches": {},
+  "flag": "no inline comments"
+ },
+ "https://github.com/grafana/grafana/pull/90045": {
+  "candidates": 5,
+  "matches": {
+   "G2": "A5"
+  },
+  "flag": "A1, A4 and A5 name the swapped legacy/storage metric calls at lines 45, 129 and 166; A5 sits on DeleteCollection's line 166 and describes the swap in the opposite direction to the golden's wording, which itself names both calls"
+ },
+ "https://github.com/grafana/grafana/pull/80329": {
+  "candidates": 4,
+  "matches": {
+   "G1": "A1"
+  }
+ },
+ "https://github.com/grafana/grafana/pull/90939": {
+  "candidates": 1,
+  "matches": {
+   "G1": "A1"
+  }
+ },
+ "https://github.com/grafana/grafana/pull/94942": {
+  "candidates": 1,
+  "matches": {
+   "G1": "A1"
+  }
+ },
+ "https://github.com/grafana/grafana/pull/97529": {
+  "candidates": 0,
+  "matches": {},
+  "flag": "no inline comments; the single general comment mentions the race, but summaries are not graded on either side"
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/1": {
+  "candidates": 4,
+  "matches": {
+   "G1": "A1"
+  }
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/2": {
+  "candidates": 3,
+  "matches": {
+   "G1": "A1"
+  }
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/3": {
+  "candidates": 1,
+  "matches": {
+   "G1": "A1"
+  },
+  "flag": "A1 frames the side effect as a lost-increment race on match_count rather than a write during a read; same framing flag as Aether's catch"
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/4": {
+  "candidates": 6,
+  "matches": {
+   "G1": "A4"
+  }
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/5": {
+  "candidates": 2,
+  "matches": {}
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/6": {
+  "candidates": 3,
+  "matches": {},
+  "regex": "rejected",
+  "flag": "nothing on the << mutation; A1 to A3 are about the path, parsing and subdomains"
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/7": {
+  "candidates": 6,
+  "matches": {
+   "G3": "A1",
+   "G2": "A2",
+   "G5": "A4"
+  }
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/8": {
+  "candidates": 1,
+  "matches": {}
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/9": {
+  "candidates": 1,
+  "matches": {}
+ },
+ "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/10": {
+  "candidates": 5,
+  "matches": {
+   "G1": "A3"
+  }
+ },
+ "https://github.com/ai-code-review-evaluation/sentry-greptile/pull/1": {
+  "candidates": 5,
+  "matches": {
+   "G1": "A1"
+  }
+ },
+ "https://github.com/ai-code-review-evaluation/sentry-greptile/pull/2": {
+  "candidates": 5,
+  "matches": {
+   "G1": "A1"
+  },
+  "flag": "A1 at paginator.py:882 names the negative-offset branch under enable_advanced_features and proposes rejecting it; it describes the consequence as reverse indexing where Django raises"
+ },
+ "https://github.com/ai-code-review-evaluation/sentry-greptile/pull/3": {
+  "candidates": 4,
+  "matches": {}
+ },
+ "https://github.com/getsentry/sentry/pull/67876": {
+  "candidates": 4,
+  "matches": {},
+  "flag": "A2 sits on the injected line (integration.py:504) but claims a KeyError on integration.metadata, not the missing github_authenticated_user state"
+ },
+ "https://github.com/ai-code-review-evaluation/sentry-greptile/pull/5": {
+  "candidates": 2,
+  "matches": {}
+ },
+ "https://github.com/getsentry/sentry/pull/93824": {
+  "candidates": 2,
+  "matches": {
+   "G1": "A1"
+  }
+ },
+ "https://github.com/getsentry/sentry/pull/77754": {
+  "candidates": 2,
+  "matches": {
+   "G1": "A1"
+  }
+ },
+ "https://github.com/getsentry/sentry/pull/80528": {
+  "candidates": 1,
+  "matches": {}
+ },
+ "https://github.com/getsentry/sentry/pull/95633": {
+  "candidates": 1,
+  "matches": {}
+ },
+ "https://github.com/getsentry/sentry/pull/80168": {
+  "candidates": 1,
+  "matches": {
+   "G1": "A1"
+  }
+ },
+ "https://github.com/ai-code-review-evaluation/keycloak-greptile/pull/1": {
+  "candidates": 2,
+  "matches": {
+   "G1": "A1"
+  }
+ },
+ "https://github.com/keycloak/keycloak/pull/32918": {
+  "candidates": 1,
+  "matches": {},
+  "flag": "A1 is a null check on storedIdp, not the re-entrant lookup"
+ },
+ "https://github.com/keycloak/keycloak/pull/33832": {
+  "candidates": 0,
+  "matches": {},
+  "flag": "no inline comments"
+ },
+ "https://github.com/keycloak/keycloak/pull/36882": {
+  "candidates": 0,
+  "matches": {},
+  "flag": "no inline comments"
+ },
+ "https://github.com/keycloak/keycloak/pull/36880": {
+  "candidates": 0,
+  "matches": {},
+  "flag": "no inline comments"
+ },
+ "https://github.com/keycloak/keycloak/pull/37038": {
+  "candidates": 0,
+  "matches": {},
+  "flag": "no inline comments"
+ },
+ "https://github.com/keycloak/keycloak/pull/37429": {
+  "candidates": 3,
+  "matches": {}
+ },
+ "https://github.com/keycloak/keycloak/pull/37634": {
+  "candidates": 2,
+  "matches": {
+   "G1": "A1"
+  }
+ },
+ "https://github.com/keycloak/keycloak/pull/38446": {
+  "candidates": 2,
+  "matches": {
+   "G1": "A1"
+  }
+ },
+ "https://github.com/keycloak/keycloak/pull/40940": {
+  "candidates": 1,
+  "matches": {
+   "G1": "A1"
+  }
+ }
+}
