@@ -1,5 +1,5 @@
-"""Score our reviews on Greptile's benchmark metric: one injected bug per PR, caught = a line-level comment identifies it.
-Uses hand-judge decisions (golden -> candidate) where the injected bug is a Martian golden, and a keyword match on inline
+"""Score our reviews on Greptile's benchmark metric: one known bug per PR, caught = a line-level comment identifies it.
+Uses hand-judge decisions (golden -> candidate) where the known bug is a Martian golden, and a keyword match on inline
 comment text where it is not. Prints caught/total per tool and the misses."""
 import json, re, sys, glob
 sys.path.insert(0, "scripts")
@@ -7,7 +7,7 @@ import importlib.util
 spec = importlib.util.spec_from_file_location("hj", "scripts/aether_hand_judge.py"); hj = importlib.util.module_from_spec(spec); spec.loader.exec_module(hj)
 C = "https://github.com/calcom/cal.com/pull/"; D = "https://github.com/ai-code-review-evaluation/discourse-graphite/pull/"; G = "https://github.com/grafana/grafana/pull/"
 SG = "https://github.com/ai-code-review-evaluation/sentry-greptile/pull/"; SS = "https://github.com/getsentry/sentry/pull/"; K = "https://github.com/keycloak/keycloak/pull/"; KG = "https://github.com/ai-code-review-evaluation/keycloak-greptile/pull/"
-# injected bug per PR: goldens that describe it, and/or a regex over inline comment text
+# known bug per PR: goldens that describe it, and/or a regex over inline comment text
 # kw=None means hand-only (since 2026-10-19): grafana 103633 = a cached denial outlives a later grant for its TTL; sentry 95633 = the second
 # except queue.ShutDown around the processor callback. Their old regexes credited refresh-cost comments and any mention of ShutDown.
 BUGS = {
@@ -60,7 +60,7 @@ tools = {"v3": ("aether-r1-deep-v3", ["handjudge/aether-r1-deep-v3.json"]),
          "v12": ("aether-r1-deep-v12", ["handjudge/aether-r1-deep-v12.json"]),
          "v13": ("aether-r1-deep-v13", ["handjudge/aether-r1-deep-v13.json"]),
          "v14": ("aether-r1-deep-v14", ["handjudge/aether-r1-deep-v14.json"]),
-         "v15": ("aether-r1-deep-v15", ["handjudge/aether-r1-deep-v15-lenient.json"]),  # owner 10-08: a comment on the injected line explaining the mechanism counts even with a 'safe' verdict
+         "v15": ("aether-r1-deep-v15", ["handjudge/aether-r1-deep-v15-lenient.json"]),  # owner 10-08: a comment on the faulty line explaining the mechanism counts even with a 'safe' verdict
          "v15S": ("aether-r1-deep-v15", ["handjudge/aether-r1-deep-v15.json"]),
          "v16": ("aether-r1-deep-v16", ["handjudge/aether-r1-deep-v16-lenient.json"]),
          "v16S": ("aether-r1-deep-v16", ["handjudge/aether-r1-deep-v16.json"]),
@@ -94,7 +94,7 @@ for name, (tool, files) in tools.items():
     c, j, m = score(tool, files)
     print(f"{name:6s} caught {c:2d}/{j:2d} reviewed PRs ({c/max(j,1):.0%})   misses: {', '.join(m)}")
 if "--union" in sys.argv:
-    print("\n== union across every judged variant (which variant caught each injected bug)")
+    print("\n== union across every judged variant (which variant caught each known bug)")
     allvars = {"v1": "aether-r1-deep-v1", "v2": "aether-r1-deep-v2", "v3": "aether-r1-deep-v3", "v6": "aether-r1-deep-v6", "v7": "aether-r1-deep-v7",
                "v8": "aether-r1-deep-v8", "v9": "aether-r1-deep-v9", "v10": "aether-r1-deep-v10", "v11": "aether-r1-deep-v11", "v12": "aether-r1-deep-v12", "v13": "aether-r1-deep-v13", "v14": "aether-r1-deep-v14", "v15": "aether-r1-deep-v15", "v16": "aether-r1-deep-v16", "final": "aether-final", "opusF": "aether-final-final-opus", "opus": "aether-r1-deep-v3-opus"}
     decs = {n: json.load(open(f"handjudge/{t}.json")) for n, t in allvars.items() if glob.glob(f"handjudge/{t}.json")}

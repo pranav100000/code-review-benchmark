@@ -1,6 +1,6 @@
 # Aether benchmark run notes
 
-Operational detail behind [the write-up](../AETHER_REVIEW_BENCHMARK.md): every configuration that was run, what each cost, what went wrong while running them, what the grading files on this branch are, and the corrections made to the grading on 19 October 2026.
+Operational detail behind [the write-up](../AETHER_REVIEW_BENCHMARK.md): every configuration that was run, what each cost, what went wrong while running them, what the grading files on this branch are, the corrections made to the grading on 19 October 2026, and the wording correction of 20 October.
 
 ## Corrections made on 19 October 2026
 
@@ -8,11 +8,15 @@ While re-grading Greptile's reviews we audited every catch that rested on a keyw
 
 | PR | What was wrong | Effect |
 | --- | --- | --- |
-| Sentry 95633 | The keyword rule credited any inline comment containing "ShutDown". The injected defect is the second `except queue.ShutDown` wrapped around the processor callback (queue_consumer.py:143), which exits the worker on a ShutDown raised by any other queue. Only v18 and v20 commented on that handler; v22, v19, v17 and the ablation were credited for comments about pool reuse and draining that merely mention ShutDown. The target is now hand-judged. | v22 43 to 42, v19 41 to 40, v17 45 to 44, ablation 37 to 36, v16 41 to 40 |
+| Sentry 95633 | The keyword rule credited any inline comment containing "ShutDown". The defect is the second `except queue.ShutDown` wrapped around the processor callback (queue_consumer.py:143), which exits the worker on a ShutDown raised by any other queue. Only v18 and v20 commented on that handler; v22, v19, v17 and the ablation were credited for comments about pool reuse and draining that merely mention ShutDown. The target is now hand-judged. | v22 43 to 42, v19 41 to 40, v17 45 to 44, ablation 37 to 36, v16 41 to 40 |
 | Grafana 103633 | Greptile's description, "cache entries without expiration causing permanent permission denials", matches neither its own July fork nor Martian's copy: both give the denial cache the 30-second `shortCacheTTL`. Our keyword credits here rested on comments about refresh cost. The target is now hand-judged as the consequence that cache does have, a denial made before a grant keeps denying until its TTL ends; v19, v20 and v22 state it, v18, v17 and the ablation do not. | v18 40 to 39, v17 44 to 43, ablation 36 to 35, v16 40 to 39 |
 | Discourse 6 | The keyword rule credited comments containing "mutat" or "frozen" even when they concluded the code was safe, which is what the lenient rule allows and the strict rule does not. v17, v16 and the Opus run were affected under strict. | v17 43 to 42, v16 39 to 38, Opus 27 to 26 of 31 |
 
 The scorer now lets a decision file reject a textual keyword match (`"regex": "rejected"`), and the two hand-judged targets carry no keyword rule at all. The same audit confirmed the other keyword credits (unawaited `forEach` callbacks, the ungrouped OR composition, the timing-unsafe comparison, double interpolation) rest on comments that state those defects.
+
+## Corrections made on 20 October 2026
+
+Wording only; no number changed. The write-up, this file, the scorer's comments and the targets table had called each PR's bug "injected". Greptile's page describes the construction as tracing real bug-fix pull requests back to the change that introduced each bug and opening that change as a fresh PR, and we checked that the 35 benchmark PRs keyed to an upstream pull request share its base and head commits exactly, so the diff under review is the original change. The word is now "known bug", and `contrib/injected_bug_targets.md` is renamed `contrib/known_bug_targets.md`.
 
 ## Full iteration log
 
@@ -47,7 +51,7 @@ Greptile's page ticks 41 PRs for itself. Under our rule six of those ticks fail:
 
 - `handjudge/aether-<run>.json` holds one decision per PR: how many inline comments the review had, which comment matched which golden comment, and a `flag` with the reasoning wherever the call is debatable. `scripts/aether_greptile_score.py` turns these into the catch count; its target table says which golden comment, keyword rule or hand-judged definition is the injected bug for each PR. `contrib/injected_bug_targets.md` lists those targets beside Greptile's own description of each PR's bug, with v22's and Greptile's July 2025 results side by side.
 - Run names in the files differ from the version numbers in the write-up: v16 is `aether-final`, v17 is `aether-prod`, the v17 ablation is `aether-ablate`, the Opus run is `aether-final-final-opus`; v18 to v22 carry their own numbers.
-- The `-lenient.json` files for v18, v19, v20, v22 and the three Greptile re-grades are byte-for-byte copies of the strict files. The lenient rule (a comment on the injected change that explains the mechanism but concludes the code is safe still counts) was applied to each and changed no PR, so the copies exist only to give the scorer a row per rule. For v16, v17 and the ablation, where the lenient rule does change the count, the two files differ.
+- The `-lenient.json` files for v18, v19, v20, v22 and the three Greptile re-grades are byte-for-byte copies of the strict files. The lenient rule (a comment on the faulty change that explains the mechanism but concludes the code is safe still counts) was applied to each and changed no PR, so the copies exist only to give the scorer a row per rule. For v16, v17 and the ablation, where the lenient rule does change the count, the two files differ.
 - A `flag` is a judgment call another grader could reject, with the reasoning, but two v22 entries use the field for operational notes instead (Grafana 76186: the review came from a retriggered task; Discourse 9: the catch was tagged as a nit from an analyzer lead). The write-up counts only the judgment flags. Flag notes written before 14 October use "lenient" in a looser sense, any golden comment matched. The cal.com 11059 flag text was corrected on 19 October to say that the summary does list the finding beyond the inline limit; the decision is unchanged.
 - `variants/aether-v22.json` originally carried fifty placeholder entries dated 20261011, copied from the v21 run's list when the file was seeded and never created on GitHub; they were removed on 19 October 2026. The fifty entries dated 20261012 are the forks the scored run used.
 
