@@ -67,6 +67,17 @@ Control: the same five tools in Martian's stored `results/openai_gpt-5.2/evaluat
 
 Three of five tools move by at most 0.03 in F1 between the two runs; Greptile's January run and Copilot move by about 0.1, in both cases because our run matched more of their candidates as true positives (55 against 31, and 85 against 50) with nearly the same false-positive counts. We did not investigate whether Martian's stored evaluations for those two tools were made from an earlier candidate extraction. `scripts/aether_compare.py` prints these tables from either folder (`MARTIAN_MODEL=gpt-5.2` or `MARTIAN_MODEL=openai/gpt-5.2`).
 
+## False-positive samples checked against the code
+
+Two samples of thirty v22 inline comments that Martian's judge matched to no golden comment, each comment checked at the fork's PR head by one of three independent model agents instructed to refute it and to cite lines. The checks were not repeated by a human. Verdicts, kinds, confidences and the cited evidence are in `contrib/fp_sample_six_reviewers.md` and `contrib/fp_sample_single_agent.md`, with the sample definitions and seeds in the matching `.json` files.
+
+| Sample (30 each) | Pool | Confirmed | Of which functional defects | Refuted |
+| --- | --- | --- | --- | --- |
+| Comments all six reviewers reported | 71 distinct comments | 27 | 20 | 3 (behaviour predates the PR) |
+| Comments one agent reported (auditor, file owner or one reviewer) | 169 distinct comments | 21 | 4 (one pre-existing) | 9 |
+
+Per-comment precision by signal, from the same mapping of judged candidates to source comments (approximate: Martian's extractor paraphrases comments, and candidates were matched back by token overlap, median Jaccard 0.23): six of six reviewers 0.34; four or five reviewers 0.18; one agent 0.04; a reproduction claimed 0.25 against 0.11 without; about tests or coverage 0.06; labelled P1 / P2 / nit 0.22 / 0.14 / 0.12. Thirty-six of v22's 42 injected-bug catches came from comments four or more agents reported; the single-agent comments held one. These numbers motivated the publishing changes in Aether's next release (inline needs two or more sources or a confirmed verification; single-source and test-gap items go to the summary), whose effect the next run will measure.
+
 ## Cost detail
 
 Dollar figures are the API list-rate equivalent of the tokens recorded per review (gpt-6-astra: $10 per million uncached input tokens, $1 per million cached, $50 per million output); the runs were paid through a Codex subscription. VM time is excluded. About 94% of input tokens are cache reads in every run. The token counts come from Aether's internal per-task accounting and are not on this branch.
