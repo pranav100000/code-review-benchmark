@@ -9,7 +9,7 @@ Fixed facts for this org:
 | Item | Value |
 |---|---|
 | GitHub org | `aether-bench` |
-| GitHub App installation id | `168675679` (`aether-agent`, all repos) |
+| GitHub App installation | the org's `aether-agent` installation, all repos (its id is the `--installation-id` argument below) |
 | Reviews post as | `aether-agent[bot]` (type Bot, so the downloader keeps them with no code change) |
 | Tool slug per run | `aether-r1`, `aether-r2`, ... (one slug = one leaderboard row) |
 
@@ -43,7 +43,7 @@ done
 ## 2. Link projects and trigger the reviews
 
 ```bash
-uv run python scripts/aether_link_and_trigger.py --tool aether-r1 --installation-id 168675679 \
+uv run python scripts/aether_link_and_trigger.py --tool aether-r1 --installation-id <installation id> \
   --agent-type codex --model gpt-6-astra
 ```
 
@@ -52,11 +52,9 @@ on every project so the run is reproducible. Forks whose PR #1 is not open yet a
 the script can run on a timer while step 1 is still forking (r1 used a 10-minute loop that
 exits after the fork log prints `=== ALL DONE`; see `link_r1.log`).
 
-Projects land in whichever Aether org the CLI key is pinned to. The r1 projects are in
-pranav's personal org on purpose: team-org PR reviews are created with no creator and cannot
-start until the owner decides whose credentials they run on
-(`apps/api/github/pr_review_task_dispatcher.go`). To target a team org later, create an API key
-while switched to that org in the web app and run the script with it in `AETHER_TOKEN`.
+Projects land in whichever Aether org the CLI key is pinned to; every run here used a personal
+org. To target another org, create an API key while switched to that org in the web app and run
+the script with it in `AETHER_TOKEN`.
 
 Wait until every PR has a review from `aether-agent[bot]`:
 
@@ -110,9 +108,10 @@ uv run python -m code_review_benchmark.step3_judge_comments --tool aether-r1-v2
 uv run python scripts/aether_compare.py --tools aether-r1 aether-r1-v2 augment --profile core --by-repo
 ```
 
-Pick variants on the TUNE half and confirm on HOLDOUT (every second PR per repo) so the
-shipped prompt is not fitted to the 50 PRs. Only start a variant after the previous one's
-reviews are downloaded: closing a PR while its review task is still running is untested.
+A tune/holdout split (every second PR per repo) was planned here and was not followed: every
+reported run used all 50 PRs, and the write-up's Limitations say so. Only start a variant after
+the previous one's reviews are downloaded: closing a PR while its review task is still running
+is untested.
 The final publishable number for the winning prompt is a fresh fork run under a new slug
 (section 1), with that prompt shipped as the product default.
 

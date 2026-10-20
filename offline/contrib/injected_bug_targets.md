@@ -4,7 +4,7 @@ The catch rate counts one injected bug per PR. This table shows, for each of the
 
 On 42 PRs the two describe the same bug. On four (cal.com 10600 and 22345, Keycloak 38446, Grafana 97529) the framing differs or the scorer accepts a wider set than Greptile's one line; those rows say how. On four more (sentry-greptile 1 and 5, Grafana 76186 and 90939), Greptile's one-line description does not match the PR as it is distributed in Martian's dataset, and we score the golden comment Martian lists for the injected change instead; those rows say why. v22 catches three of those four, so counting all four as misses gives 40 of 50 instead of 43.
 
-Sources: Greptile's page, https://www.greptile.com/benchmarks (fetched 20 October 2026); Martian's golden comments, `offline/golden_comments/`; the scorer's target table, `offline/scripts/aether_greptile_score.py`; v22's decisions, `offline/handjudge/aether-v22.json`. "flagged" means the decision file marks the catch as a judgment call.
+Sources: Greptile's page, https://www.greptile.com/benchmarks (fetched 19 October 2026); Martian's golden comments, `offline/golden_comments/`; the scorer's target table, `offline/scripts/aether_greptile_score.py`; v22's decisions, `offline/handjudge/aether-v22.json`. "flagged" means the decision file marks the catch as a judgment call.
 
 | PR (Martian key) | Greptile's description | Target we score | v22 | Note |
 | --- | --- | --- | --- | --- |

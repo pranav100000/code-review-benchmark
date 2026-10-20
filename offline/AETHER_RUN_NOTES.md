@@ -24,7 +24,9 @@ v16 and v17 are not reported in the write-up because their pre-pass scanners wer
 - `handjudge/aether-<run>.json` holds one decision per PR: how many inline comments the review had, which comment matched which golden comment, and a `flag` with the reasoning wherever the call is debatable. `scripts/aether_greptile_score.py` turns these into the catch count; its target table says which golden comment, or which keyword rule, is the injected bug for each PR. `contrib/injected_bug_targets.md` lists those targets beside Greptile's own description of each PR's bug.
 - The `-lenient.json` files for v18, v19, v20 and v22 are byte-for-byte copies of the strict files. The lenient rule (a comment on the injected change that explains the mechanism but concludes the code is safe still counts) was applied to each run and changed no PR, so the copies exist only to give the scorer a row per rule. For v16, v17 and the ablation, where the lenient rule did change the count, the two files differ.
 - Flag notes written before 14 October use "lenient" in a looser sense, any golden comment matched, which is not the rule above. The sentry-greptile 5 note is one: it is a miss under both rules as defined.
-- `variants/aether-v22.json` originally carried fifty placeholder entries dated 20261011, copied from the v21 run's list when the file was seeded and never created on GitHub; they were removed on 20 October 2026. The fifty entries dated 20261012 are the forks the scored run used.
+- `variants/aether-v22.json` originally carried fifty placeholder entries dated 20261011, copied from the v21 run's list when the file was seeded and never created on GitHub; they were removed on 19 October 2026. The fifty entries dated 20261012 are the forks the scored run used.
+- Run names in the files differ from the version numbers in the write-up: v16 is `aether-final`, v17 is `aether-prod`, the v17 ablation is `aether-ablate`, the Opus run is `aether-final-final-opus`; v18 to v22 carry their own numbers.
+- A `flag` is a judgment call another grader could reject, with the reasoning, but two v22 entries use the field for operational notes instead (Grafana 76186: the review came from a retriggered task; Discourse 9: the catch was tagged as a nit from an analyzer lead). The write-up counts only the ten judgment flags. The cal.com 11059 flag text was corrected on 19 October 2026 to say that the summary does list the finding beyond the inline limit; the decision is unchanged.
 
 ## Cost detail
 
@@ -50,7 +52,7 @@ Nothing below changed a score: a review that died never posted, and a second att
 | When (UTC) | What happened | Cost |
 | --- | --- | --- |
 | 8 Oct | Codex usage limit mid-run (v16); 40 forks re-triggered after the reset | not costed |
-| 11–13 Oct | Six Codex usage-limit outages during v20, each killing every review in flight; the usage window was reset each time. sentry-greptile 5 died three times (117 M, 34 M and 12 M tokens) before completing | not costed per task |
+| 11–13 Oct | Six Codex usage-limit outages during v20, each killing every review in flight; sentry-greptile 5 died three times (117 M, 34 M and 12 M tokens) before completing | not costed per task |
 | 12 Oct | v21 abandoned after 22 reviews died in one outage | 22 partial reviews |
 | 13 Oct 03:30 | An Aether API validation bug killed one review 11 minutes in (an untrimmed sub-agent summary); re-run | one partial review |
 | 13 Oct 08:20–09:00 | An Aether API change removed review runs from the task list; the run script read "no task" every poll and started 11 duplicate reviews of one PR. Ten were stopped by hand, none posted | about $311 |
@@ -58,7 +60,7 @@ Nothing below changed a score: a review that died never posted, and a second att
 | 13 Oct 12:34 | Usage limit: four v22 reviews died in flight; re-run the next day | $137 lost, $190 to re-run |
 | 14 Oct 01:29 | The run script crashed on a truncated GitHub API response; both remaining reviews finished and posted while it was down | none |
 
-Three forks needed re-creating under a new name because GitHub never created the pull-request ref the checkout fetches (Keycloak 38446 in v20; cal.com 10967 and 14943 in the ablation). One Pro Codex week proved to be about $1,200 at API rates, measured twice.
+Three forks needed re-creating under a new name because GitHub never created the pull-request ref the checkout fetches (Keycloak 38446 in v20; cal.com 10967 and 14943 in the ablation).
 
 ## Greptile re-grade
 

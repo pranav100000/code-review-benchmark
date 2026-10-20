@@ -78,7 +78,7 @@
   },
   "https://github.com/calcom/cal.com/pull/11059": {
     "candidates": 30,
-    "flag": "kw (constant-time secret comparison) not reported anywhere in 30 comments or the summary",
+    "flag": "kw (constant-time secret comparison) is not among the 30 inline comments; the review summary lists it first under the findings beyond the inline limit, which does not count (flag text corrected 2026-10-19; the decision is unchanged)",
     "matches": {
       "G1": "A6",
       "G2": "A5",
