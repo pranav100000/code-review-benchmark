@@ -16,7 +16,7 @@ The scorer now lets a decision file reject a textual keyword match (`"regex": "r
 
 ## Corrections made on 20 October 2026
 
-Wording only; no number changed. The write-up, this file, the scorer's comments and the targets table had called each PR's bug "injected". Greptile's page describes the construction as tracing real bug-fix pull requests back to the change that introduced each bug and opening that change as a fresh PR, and we checked that the 35 benchmark PRs keyed to an upstream pull request share its base and head commits exactly, so the diff under review is the original change. The word is now "known bug", and `contrib/injected_bug_targets.md` is renamed `contrib/known_bug_targets.md`.
+Wording only; no number changed. The write-up, this file, the scorer's comments and the targets table had called each PR's bug "injected". Greptile's page describes the construction as tracing real bug-fix pull requests back to the change that introduced each bug and opening that change as a fresh PR, and we checked that the 35 benchmark PRs keyed to an upstream pull request share its base and head commits exactly, so the diff under review is the original change. The word is now "known bug", and `contrib/injected_bug_targets.md` is renamed `contrib/known_bug_targets.md`. On 21 October the write-up was also updated to say that the shipped tier has applied the v23 publishing policy (inline only for findings with two or more sources or a confirmed verification; single-source and test-gap items in the summary; P1 and P2 before nits under the cap) since 20 October, unmeasured in a fresh run.
 
 ## Full iteration log
 
